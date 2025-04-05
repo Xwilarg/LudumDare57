@@ -5,7 +5,14 @@ namespace LudumDare57.SO
     [CreateAssetMenu(menuName = "ScriptableObject/PlayerInfo", fileName = "PlayerInfo")]
     public class PlayerInfo : ScriptableObject
     {
+        [Header("Basic Movements")]
         public float Speed;
         public float JumpForce;
+        public float JumpCooldown;
+
+        [Header("Drilling")]
+        [Tooltip("Player speed while drilling")] public float DrillingSpeed;
+        [Tooltip("After we are done drilling, amount of time we need to wait before doing it again")] public float DrillingCooldown;
+        [Tooltip("Amount of time in which drilling effect is active")] public float DrillDuration;
     }
 }

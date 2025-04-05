@@ -1,6 +1,5 @@
 using LudumDare57.SO;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +20,9 @@ namespace LudumDare57
         private float _xMov;
 
         private bool _canJump = true;
+        public bool _canDrill = true;
+
+        private Vector2? _drillingDir;
 
         private void Awake()
         {
@@ -29,9 +31,10 @@ namespace LudumDare57
 
         private void Update()
         {
+            if (_drillingDir != null) return; // Can't change drill pos while drilling
+
             // Drill follow mouse
-            var mouse = Mouse.current.position.ReadValue();
-            var worldMouse = _cam.ScreenToWorldPoint(mouse);
+            var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             var dir = ((Vector2)(worldMouse - transform.position)).normalized;
             _drill.transform.up = dir;
             _drill.transform.position = transform.position + _drill.transform.up;
@@ -39,14 +42,24 @@ namespace LudumDare57
 
         private void FixedUpdate()
         {
-            _rb.linearVelocity = new Vector2(_xMov * _info.Speed, _rb.linearVelocityY);
+            if (_drillingDir == null) _rb.linearVelocity = new Vector2(_xMov * _info.Speed, _rb.linearVelocityY);
+            else _rb.linearVelocity = _drillingDir.Value * _info.DrillingSpeed;
         }
 
         private IEnumerator PlayJumpCooldown() // Prevent player from spamming jump button to launch upward
         {
             _canJump = false;
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(_info.JumpCooldown);
             _canJump = true;
+        }
+
+        private IEnumerator PlayDrillCooldown()
+        {
+            _canDrill = false;
+            yield return new WaitForSeconds(_info.DrillDuration);
+            _drillingDir = null;
+            yield return new WaitForSeconds(_info.DrillingCooldown);
+            _canDrill = true;
         }
 
         public void OnMove(InputAction.CallbackContext value)
@@ -67,6 +80,16 @@ namespace LudumDare57
                     _rb.AddForce(Vector2.up * _info.JumpForce, ForceMode2D.Impulse);
                     StartCoroutine(PlayJumpCooldown());
                 }
+            }
+        }
+
+        public void OnDrill(InputAction.CallbackContext value)
+        {
+            if (value.phase == InputActionPhase.Started && _canDrill)
+            {
+                var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                _drillingDir = ((Vector2)(worldMouse - transform.position)).normalized;
+                StartCoroutine(PlayDrillCooldown());
             }
         }
 
