@@ -1,5 +1,6 @@
 using LudumDare57.SO;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,12 @@ namespace LudumDare57
         [SerializeField]
         private PlayerInfo _info;
 
+        [SerializeField]
+        private GameObject _drill;
+
+        [SerializeField]
+        private Camera _cam;
+
         private Rigidbody2D _rb;
         private float _xMov;
 
@@ -18,6 +25,16 @@ namespace LudumDare57
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+        }
+
+        private void Update()
+        {
+            // Drill follow mouse
+            var mouse = Mouse.current.position.ReadValue();
+            var worldMouse = _cam.ScreenToWorldPoint(mouse);
+            var dir = ((Vector2)(worldMouse - transform.position)).normalized;
+            _drill.transform.up = dir;
+            _drill.transform.position = transform.position + _drill.transform.up;
         }
 
         private void FixedUpdate()
