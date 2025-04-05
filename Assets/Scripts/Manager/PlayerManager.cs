@@ -11,9 +11,19 @@ namespace LudumDare57.Manager
 
         private readonly List<PlayerController> _players = new();
 
+        [SerializeField]
+        private Transform _targetFollow;
+
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Update()
+        {
+            if (_players.Count == 0) return;
+
+            _targetFollow.position = _players.Select(x => x.transform.position).Aggregate((a, b) => a + b) / _players.Count;
         }
 
         public void Register(PlayerController pc)
