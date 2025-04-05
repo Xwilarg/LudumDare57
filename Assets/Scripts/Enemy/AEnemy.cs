@@ -35,7 +35,10 @@ namespace LudumDare57.Enemy
                 yield return new WaitForSeconds(2f);
 
                 _target = PlayerManager.Instance.GetClosest(transform.position);
-                if (_target != null) DoAction();
+                if (_target != null && Vector2.Distance(transform.position, _target.transform.position) < 10f)
+                {
+                    DoAction();
+                }
             }
         }
 

@@ -12,10 +12,7 @@ namespace LudumDare57.Enemy
 
         public override void DoAction()
         {
-            if (Vector2.Distance(transform.position, _target.transform.position) < 10f)
-            {
-                StartCoroutine(WaitAndTeleport());
-            }
+            StartCoroutine(WaitAndTeleport());
         }
 
         private IEnumerator WaitAndTeleport()

@@ -103,7 +103,7 @@ namespace LudumDare57.Manager
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing - 1f),
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing / 2f)
                 ) * TileSize;
-                var possibles = _enemyPrefabs.Take(yOffset + 1).ToArray();
+                var possibles = _enemyPrefabs.Take(Mathf.FloorToInt(yOffset / 2f) + 1).ToArray();
                 Instantiate(possibles[Random.Range(0, possibles.Length)], new Vector2(spawnX, spawnY), Quaternion.identity);
             }
         }
