@@ -1,6 +1,5 @@
 using LudumDare57.Prop;
 using LudumDare57.SO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +33,7 @@ namespace LudumDare57.Manager
             _mapContainer = new GameObject("Map");
             _genBoundingBox.size = new Vector2((_genInfo.MapGenWidth * 2f + 1f) * TileSize, _genBoundingBox.size.y);
 
-            for (int area = 0; area < 5; area++)
+            for (int area = 0; area < _genInfo.AreaCount; area++)
             {
                 GenerateArea(area);
             }
@@ -76,7 +75,8 @@ namespace LudumDare57.Manager
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing - 1f),
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing / 2f)
                 ) * TileSize;
-                Instantiate(_enemyPrefabs[Random.Range(0, _enemyPrefabs.Length)], new Vector2(spawnX, spawnY), Quaternion.identity);
+                var possibles = _enemyPrefabs.Take(yOffset + 1).ToArray();
+                Instantiate(possibles[Random.Range(0, possibles.Length)], new Vector2(spawnX, spawnY), Quaternion.identity);
             }
         }
 

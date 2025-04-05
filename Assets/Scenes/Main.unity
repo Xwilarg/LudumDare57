@@ -2332,6 +2332,7 @@ MonoBehaviour:
   _enemyPrefabs:
   - {fileID: 5600395327419131041, guid: 49398d675dc3cef48a23d774a71c6870, type: 3}
   - {fileID: 2576605515115211709, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
+  - {fileID: 7851785109542494892, guid: 31352b7ed1b4ff64e9e5fb67b53aef01, type: 3}
 --- !u!114 &1968997205
 MonoBehaviour:
   m_ObjectHideFlags: 0

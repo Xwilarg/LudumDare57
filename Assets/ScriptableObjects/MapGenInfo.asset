@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MapGenInfo
   m_EditorClassIdentifier: 
   MapGenWidth: 10
+  AreaCount: 4
   AreaHeight: 10
   AreaInterSpacing: 6
   EnemyPerArea:
