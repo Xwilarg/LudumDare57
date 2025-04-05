@@ -28,7 +28,7 @@ namespace LudumDare57.Manager
             {
                 for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
                 {
-                    SpawnTile(x, y, true);
+                    SpawnTile(x, y, destructible: Mathf.Abs(x) != _genInfo.MapGenWidth);
                 }
             }
             SpawnWall(-_genInfo.MapGenWidth, 1f);
@@ -39,10 +39,10 @@ namespace LudumDare57.Manager
         {
             var wall = new GameObject("Wall", typeof(BoxCollider2D));
             wall.layer = LayerMask.NameToLayer("Map");
-            wall.transform.position = new Vector2(x - sizeX, 0f);
+            wall.transform.position = new Vector2((x + (sizeX * (x < 0f ? -1f : 1f))) * TileSize, 0f);
             wall.transform.parent = _mapContainer.transform;
             var coll = wall.GetComponent<BoxCollider2D>();
-            coll.size = new Vector2(sizeX, 50f);
+            coll.size = new Vector2(sizeX * TileSize, 50f);
         }
 
         private void SpawnTile(int x, int y, bool destructible)
