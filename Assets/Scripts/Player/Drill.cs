@@ -168,6 +168,8 @@ namespace LudumDare57.Player
 
                 _drillTimer = _info.DrillDuration;
                 _canDrill = false;
+
+                AudioManager.Instance.PlayDrill();
             }
         }
     }

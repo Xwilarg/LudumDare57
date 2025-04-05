@@ -78,6 +78,7 @@ namespace LudumDare57.Player
         {
             if (collision.collider.CompareTag("Enemy") && !_isHurtCooldown)
             {
+                AudioManager.Instance.PlayPlayerHit();
                 StartCoroutine(PlayHurtEffect());
                 _hurtTimer = _info.HurtDuration;
                 _hurtDirection = (transform.position - collision.collider.transform.position).normalized;

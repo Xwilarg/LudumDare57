@@ -23,6 +23,7 @@ namespace LudumDare57.Manager
                     u.Index++;
                     if (u.Index == 3) u.Button.gameObject.SetActive(false);
 
+                    AudioManager.Instance.PlayBuy();
                     UpdateShopUI(PlayerManager.Instance.Money);
                 });
             }
