@@ -23,6 +23,9 @@ namespace LudumDare57.Manager
         [SerializeField]
         private GameObject[] _enemyPrefabs;
 
+        [SerializeField]
+        private GameObject _exitPrefab;
+
         private GameObject _mapContainer;
 
         private const float TileSize = 1.28f;
@@ -40,6 +43,10 @@ namespace LudumDare57.Manager
             SpawnWall(-_genInfo.MapGenWidth, 1f);
             SpawnWall(_genInfo.MapGenWidth, 1f);
 
+            Instantiate(_exitPrefab, new Vector2(
+                x: (-_genInfo.MapGenWidth + 1) * TileSize,
+                y: (GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) + 1.5f) * TileSize
+                ), Quaternion.identity);
             for (int y = 0; y < 3; y++)
             {
                 for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)

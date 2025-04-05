@@ -42,6 +42,9 @@ TagManager:
   - name: AttackHint
     uniqueID: 3214477325
     locked: 0
+  - name: BackgroundElem
+    uniqueID: 339048135
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
