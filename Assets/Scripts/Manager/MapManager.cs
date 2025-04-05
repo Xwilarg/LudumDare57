@@ -15,6 +15,9 @@ namespace LudumDare57.Manager
         [SerializeField]
         private GameObject _blockPrefab;
 
+        [SerializeField]
+        private BoxCollider2D _genBoundingBox;
+
         private GameObject _mapContainer;
 
         private const float TileSize = 1.28f;
@@ -23,6 +26,7 @@ namespace LudumDare57.Manager
         private void Awake()
         {
             _mapContainer = new GameObject("Map");
+            _genBoundingBox.size = new Vector2((_genInfo.MapGenWidth * 2f + 1f) * TileSize, _genBoundingBox.size.y);
 
             for (int area = 0; area < 5; area++)
             {
