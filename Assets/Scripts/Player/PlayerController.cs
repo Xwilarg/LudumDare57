@@ -1,7 +1,6 @@
 using LudumDare57.Manager;
 using LudumDare57.SO;
 using System.Collections;
-using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,10 +12,6 @@ namespace LudumDare57.Player
         [SerializeField]
         private PlayerInfo _info;
         public PlayerInfo Info => _info;
-
-        [SerializeField]
-        private Camera _cam;
-        public Camera PlayerCamera => _cam;
 
         [SerializeField]
         private TMP_Text _depthText;

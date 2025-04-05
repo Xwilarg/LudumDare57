@@ -9,6 +9,10 @@ namespace LudumDare57.Manager
     {
         public static PlayerManager Instance { private set; get; }
 
+        [SerializeField]
+        private Camera _cam;
+        public Camera Camera => _cam;
+
         private readonly List<PlayerController> _players = new();
 
         [SerializeField]

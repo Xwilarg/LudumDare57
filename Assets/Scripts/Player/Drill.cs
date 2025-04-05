@@ -1,3 +1,4 @@
+using LudumDare57.Manager;
 using LudumDare57.SO;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ namespace LudumDare57.Player
         private GameObject _breakEffect;
 
         private PlayerInfo _info;
-        private Camera _cam;
 
         private Vector2? _drillingDir;
         private Color _drillBaseColor;
@@ -38,7 +38,6 @@ namespace LudumDare57.Player
         {
             var pc = GetComponent<PlayerController>();
             _info = pc.Info;
-            _cam = pc.PlayerCamera;
 
             _drillSr = _drill.GetComponent<SpriteRenderer>();
             _drillBaseColor = _drillSr.color;
@@ -85,7 +84,7 @@ namespace LudumDare57.Player
             // Update drill object to follow mouse
             if (_drillingDir == null) // Can't change direction while drilling
             {
-                var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                var worldMouse = PlayerManager.Instance.Camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 var dir = ((Vector2)(worldMouse - transform.position)).normalized;
                 _drill.transform.up = dir;
                 _drill.transform.position = transform.position + _drill.transform.up;
@@ -108,7 +107,7 @@ namespace LudumDare57.Player
         {
             if (value.phase == InputActionPhase.Started && _canDrill)
             {
-                var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                var worldMouse = PlayerManager.Instance.Camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 _drillingDir = ((Vector2)(worldMouse - transform.position)).normalized;
 
                 _drillTimer = _info.DrillDuration;
