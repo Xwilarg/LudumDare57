@@ -24,7 +24,8 @@ namespace LudumDare57.Player
         private GameObject _breakEffect;
 
         [SerializeField]
-        private Sprite _upgradedSprite;
+        private Sprite[] _upgradedSprites;
+        private int _upgradeIndex;
 
         private PlayerController _controller;
         private PlayerInfo _info;
@@ -40,6 +41,7 @@ namespace LudumDare57.Player
         public Vector2 DrilligDir => _drillingDir.Value;
 
         private readonly List<IDestructible> _targetedBlocks = new();
+        
 
         private void Awake()
         {
@@ -80,7 +82,8 @@ namespace LudumDare57.Player
         public void UpgradeDrillCooldown()
         {
             _drillCooldownRef /= 2f;
-            _drillSr.sprite = _upgradedSprite;
+            _drillSr.sprite = _upgradedSprites[_upgradeIndex];
+            _upgradeIndex++;
         }
 
         private void Update()

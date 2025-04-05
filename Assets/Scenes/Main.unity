@@ -1930,6 +1930,22 @@ PrefabInstance:
       propertyPath: _healthContainer
       value: 
       objectReference: {fileID: 551842044}
+    - target: {fileID: 4425878580000714251, guid: f16a402bb14616448b02944b9e889933, type: 3}
+      propertyPath: _upgradedSprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4425878580000714251, guid: f16a402bb14616448b02944b9e889933, type: 3}
+      propertyPath: '_upgradedSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 3849f29431def7542a259e6ee48b1270, type: 3}
+    - target: {fileID: 4425878580000714251, guid: f16a402bb14616448b02944b9e889933, type: 3}
+      propertyPath: '_upgradedSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 62ae69560ed54ce47b5f1cf178483753, type: 3}
+    - target: {fileID: 4425878580000714251, guid: f16a402bb14616448b02944b9e889933, type: 3}
+      propertyPath: '_upgradedSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 6d5b85af9ff3b4743b2db22a618f895a, type: 3}
     - target: {fileID: 8440223058093984515, guid: f16a402bb14616448b02944b9e889933, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3259,13 +3275,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _upgrades:
   - Button: {fileID: 594357615}
-    Price: 200
+    Prices: c80000009001000020030000
     MoneyLabel: {fileID: 951690931}
   - Button: {fileID: 353158840}
-    Price: 300
+    Prices: 96000000770100008a020000
     MoneyLabel: {fileID: 440823128}
   - Button: {fileID: 551987329}
-    Price: 50
+    Prices: 320000004b00000064000000
     MoneyLabel: {fileID: 1867647870}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

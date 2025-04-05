@@ -16,21 +16,23 @@ namespace LudumDare57.Manager
             Instance = this;
             foreach (var u in _upgrades)
             {
-                u.MoneyLabel.text = $"{u.Price}";
+                u.MoneyLabel.text = $"{u.Prices[u.Index]}";
                 u.Button.onClick.AddListener(() =>
                 {
-                    PlayerManager.Instance.GainMoney(-u.Price);
-                    u.Button.gameObject.SetActive(false);
+                    PlayerManager.Instance.GainMoney(-u.Prices[u.Index]);
+                    u.Index++;
+                    if (u.Index == 3) u.Button.gameObject.SetActive(false);
+
+                    UpdateShopUI(PlayerManager.Instance.Money);
                 });
             }
-            UpdateShopUI(0);
         }
 
         public void UpdateShopUI(int totalMoney)
         {
             foreach (var u in _upgrades)
             {
-                u.Button.interactable = totalMoney >= u.Price;
+                u.Button.interactable = totalMoney >= u.Prices[u.Index];
             }
         }
 
@@ -54,7 +56,10 @@ namespace LudumDare57.Manager
     public class ShopUpgrade
     {
         public Button Button;
-        public int Price;
+        public int[] Prices;
         public TMP_Text MoneyLabel;
+
+        [System.NonSerialized]
+        public int Index;
     }
 }

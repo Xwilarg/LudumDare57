@@ -23,11 +23,19 @@ namespace LudumDare57.Manager
         [SerializeField]
         private TMP_Text _moneyText;
 
+        [SerializeField]
+        private int _baseMoney;
+
         public int Money { private set; get; }
 
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
+            GainMoney(_baseMoney);
         }
 
         private void Update()
