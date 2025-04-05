@@ -46,11 +46,11 @@ namespace LudumDare57.Player
             _sr = GetComponent<SpriteRenderer>();
 
             _maxLife = _info.HealthCount;
-            ResetPlayer();
         }
 
         private void Start()
         {
+            ResetPlayer();
             PlayerManager.Instance.Register(this);
         }
 
