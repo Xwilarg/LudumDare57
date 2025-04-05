@@ -39,11 +39,24 @@ namespace LudumDare57.Manager
             }
             SpawnWall(-_genInfo.MapGenWidth, 1f);
             SpawnWall(_genInfo.MapGenWidth, 1f);
+
+            for (int y = 0; y < 3; y++)
+            {
+                for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
+                {
+                    SpawnTile(
+                        x: x,
+                        y: GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - y,
+                        destructible: Mathf.Abs(x) != _genInfo.MapGenWidth,
+                        isObjective: y == 2 && x == 0
+                    );
+                }
+            }
             for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
             {
                 SpawnTile(
                     x: x,
-                    y: GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)),
+                    y: GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - 3,
                     destructible: false
                 );
             }
@@ -100,13 +113,17 @@ namespace LudumDare57.Manager
             coll.size = new Vector2(sizeX * TileSize, 50f);
         }
 
-        private void SpawnTile(int x, int y, bool destructible)
+        private void SpawnTile(int x, int y, bool destructible, bool isObjective = false)
         {
             var isOnTop = y == GameTopAreaY;
             IEnumerable<TileInfo> availables = _tiles.Where(x => x.IsDestructible == destructible).OrderBy(x => isOnTop == x.IsOnTop ? 0 : 1);
 
             var go = Instantiate(_blockPrefab, _mapContainer.transform);
             go.transform.position = new Vector2(x, y) * TileSize;
+            if (isObjective)
+            {
+                availables = availables.Where(x => x.IsObjective);
+            }
             if (destructible)
             {
                 var bl = go.AddComponent<DestructibleBlock>();
