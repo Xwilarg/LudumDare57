@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2195308431269790735}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.70710576, w: 0.7071079}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.8, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5f67dd868f5611847a94d22f5f0692e9, type: 3}
+  m_Color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 4991954108592331117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.57, z: 0}
+  m_LocalPosition: {x: 0, y: 0.471, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -157,7 +157,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0.000000014901161, y: 0.0000009536743}
-  m_Radius: 0.5000001
+  m_Radius: 0.5
 --- !u!114 &5372112614743580265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 4425878580000714251}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,7 +211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8440223058093984515}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -353,6 +353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info: {fileID: 11400000, guid: 2cf9be120504f874db1b63ba8ba1d291, type: 2}
   _depthText: {fileID: 0}
+  _healthContainer: {fileID: 0}
+  _healthPrefab: {fileID: 3543470901388737392, guid: a7f1f8a8c4a4093469703d119e821809, type: 3}
 --- !u!114 &4425878580000714251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +370,7 @@ MonoBehaviour:
   _drill: {fileID: 2195308431269790735}
   _drillTrigger: {fileID: 8037847841887423845}
   _breakEffect: {fileID: 4943864478785650413, guid: c4a0b87952ecaf542afde9ed7d5fd090, type: 3}
+  _upgradedSprite: {fileID: 21300000, guid: 3849f29431def7542a259e6ee48b1270, type: 3}
 --- !u!1 &8587769619541015344
 GameObject:
   m_ObjectHideFlags: 0

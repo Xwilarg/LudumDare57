@@ -37,6 +37,8 @@ namespace LudumDare57.Player
 
         private Drill _drill;
 
+        public bool IsOnExit { set; private get; }
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -152,6 +154,14 @@ namespace LudumDare57.Player
                     _rb.AddForce(Vector2.up * _info.JumpForce, ForceMode2D.Impulse);
                     StartCoroutine(PlayJumpCooldown());
                 }
+            }
+        }
+
+        public void OnInteract(InputAction.CallbackContext value)
+        {
+            if (value.phase == InputActionPhase.Started && IsOnExit)
+            {
+                // TODO: Game end
             }
         }
 
