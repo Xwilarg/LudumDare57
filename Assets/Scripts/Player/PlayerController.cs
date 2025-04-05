@@ -12,6 +12,7 @@ namespace LudumDare57
 
         [SerializeField]
         private GameObject _drill;
+        private SpriteRenderer _drillSr;
 
         [SerializeField]
         private Camera _cam;
@@ -23,21 +24,48 @@ namespace LudumDare57
         public bool _canDrill = true;
 
         private Vector2? _drillingDir;
+        private Color _drillBaseColor;
+
+        private float _drillTimer;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _drillSr = _drill.GetComponent<SpriteRenderer>();
+            _drillBaseColor = _drillSr.color;
         }
 
         private void Update()
         {
-            if (_drillingDir != null) return; // Can't change drill pos while drilling
+            if (!_canDrill)
+            {
+                _drillTimer -= Time.deltaTime;
 
-            // Drill follow mouse
-            var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            var dir = ((Vector2)(worldMouse - transform.position)).normalized;
-            _drill.transform.up = dir;
-            _drill.transform.position = transform.position + _drill.transform.up;
+                // Update drill color depending of how long we have been drilling
+                if (_drillingDir != null) _drillSr.color = Color.Lerp(_drillBaseColor, Color.red, 1f - (_drillTimer / _info.DrillDuration));
+                else _drillSr.color = Color.Lerp(Color.red, _drillBaseColor, 1f - (_drillTimer / _info.DrillingCooldown));
+
+                if (_drillTimer <= 0f)
+                {
+                    if (_drillingDir != null) // End of drill, start cooldown
+                    {
+                        _drillingDir = null;
+                        _drillTimer = _info.DrillingCooldown;
+                    }
+                    else // End of cooldown, we can use the drill again
+                    {
+                        _canDrill = true;
+                    }
+                }
+            }
+
+            if (_drillingDir == null) // Can't change direction while drilling
+            {
+                var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                var dir = ((Vector2)(worldMouse - transform.position)).normalized;
+                _drill.transform.up = dir;
+                _drill.transform.position = transform.position + _drill.transform.up;
+            }
         }
 
         private void FixedUpdate()
@@ -51,15 +79,6 @@ namespace LudumDare57
             _canJump = false;
             yield return new WaitForSeconds(_info.JumpCooldown);
             _canJump = true;
-        }
-
-        private IEnumerator PlayDrillCooldown()
-        {
-            _canDrill = false;
-            yield return new WaitForSeconds(_info.DrillDuration);
-            _drillingDir = null;
-            yield return new WaitForSeconds(_info.DrillingCooldown);
-            _canDrill = true;
         }
 
         public void OnMove(InputAction.CallbackContext value)
@@ -89,7 +108,9 @@ namespace LudumDare57
             {
                 var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 _drillingDir = ((Vector2)(worldMouse - transform.position)).normalized;
-                StartCoroutine(PlayDrillCooldown());
+
+                _drillTimer = _info.DrillDuration;
+                _canDrill = false;
             }
         }
 
