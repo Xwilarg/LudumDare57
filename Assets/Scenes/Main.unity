@@ -3261,6 +3261,7 @@ MonoBehaviour:
   _cam: {fileID: 519420031}
   _targetFollow: {fileID: 1465471350}
   _moneyText: {fileID: 1377712271}
+  _baseMoney: 5000
 --- !u!114 &1968997206
 MonoBehaviour:
   m_ObjectHideFlags: 0

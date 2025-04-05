@@ -32,7 +32,7 @@ namespace LudumDare57.Manager
         {
             foreach (var u in _upgrades)
             {
-                u.Button.interactable = totalMoney >= u.Prices[u.Index];
+                if (u.Button.gameObject.activeInHierarchy) u.Button.interactable = totalMoney >= u.Prices[u.Index];
             }
         }
 

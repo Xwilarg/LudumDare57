@@ -77,7 +77,7 @@ namespace LudumDare57.Player
         public void UpgradeDrillSize()
         {
             _triggerColl.radius += 1f;
-            _drillSr.transform.localScale = new Vector3(_drillSr.transform.localScale.x, _drillSr.transform.localScale.y + .2f, _drillSr.transform.localScale.z);
+            _drillSr.transform.localScale = new Vector3(_drillSr.transform.localScale.x + .2f, _drillSr.transform.localScale.y, _drillSr.transform.localScale.z);
         }
         public void UpgradeDrillCooldown()
         {
