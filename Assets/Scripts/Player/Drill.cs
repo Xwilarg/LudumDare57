@@ -34,6 +34,8 @@ namespace LudumDare57.Player
         private float _drillTimer;
         private bool _canDrill = true;
 
+        private float _drillCooldownRef;
+
         public bool IsDrilling => _drillingDir != null;
         public Vector2 DrilligDir => _drillingDir.Value;
 
@@ -43,6 +45,8 @@ namespace LudumDare57.Player
         {
             _controller = GetComponent<PlayerController>();
             _info = _controller.Info;
+
+            _drillCooldownRef = _info.DrillingCooldown;
 
             _drillSr = _drill.GetComponent<SpriteRenderer>();
             _drillBaseColor = _drillSr.color;
@@ -66,6 +70,7 @@ namespace LudumDare57.Player
         public void UpgradeDrill()
         {
             _triggerColl.radius += 1f;
+            _drillCooldownRef /= 2f;
             _drillSr.sprite = _upgradedSprite;
         }
 
@@ -78,14 +83,14 @@ namespace LudumDare57.Player
 
                 // Update drill color depending of how long we have been drilling
                 if (_drillingDir != null) _drillSr.color = Color.Lerp(_drillBaseColor, Color.red, 1f - (_drillTimer / _info.DrillDuration));
-                else _drillSr.color = Color.Lerp(Color.red, _drillBaseColor, 1f - (_drillTimer / _info.DrillingCooldown));
+                else _drillSr.color = Color.Lerp(Color.red, _drillBaseColor, 1f - (_drillTimer / _drillCooldownRef));
 
                 if (_drillTimer <= 0f)
                 {
                     if (_drillingDir != null) // End of drill, start cooldown
                     {
                         _drillingDir = null;
-                        _drillTimer = _info.DrillingCooldown;
+                        _drillTimer = _drillCooldownRef;
                     }
                     else // End of cooldown, we can use the drill again
                     {
@@ -114,7 +119,7 @@ namespace LudumDare57.Player
                     Destroy(Instantiate(_breakEffect, bl.GameObject.transform.position, Quaternion.identity), .2f);
                     Destroy(bl.GameObject);
                 }
-                _controller.GainMoney(amountGained);
+                PlayerManager.Instance.GainMoney(amountGained);
                 _targetedBlocks.Clear();
             }
         }

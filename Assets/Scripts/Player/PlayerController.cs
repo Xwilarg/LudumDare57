@@ -24,9 +24,6 @@ namespace LudumDare57.Player
         private GameObject _healthPrefab;
         private readonly List<GameObject> _lives = new();
 
-        [SerializeField]
-        private TMP_Text _moneyText;
-
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
         private float _xMov;
@@ -37,8 +34,6 @@ namespace LudumDare57.Player
 
         private Drill _drill;
 
-        private int _money;
-
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -46,7 +41,6 @@ namespace LudumDare57.Player
             _sr = GetComponent<SpriteRenderer>();
 
             ResetPlayer();
-            GainMoney(20);
         }
 
         private void Start()
@@ -91,12 +85,6 @@ namespace LudumDare57.Player
         public void UpgradeDrill()
         {
             _drill.UpgradeDrill();
-        }
-
-        public void GainMoney(int amount)
-        {
-            _money += amount;
-            _moneyText.text = $"{_money}";
         }
 
         private void ResetPlayer()

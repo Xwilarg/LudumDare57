@@ -2,6 +2,7 @@ using LudumDare57.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace LudumDare57.Manager
@@ -19,9 +20,19 @@ namespace LudumDare57.Manager
         [SerializeField]
         private Transform _targetFollow;
 
+        [SerializeField]
+        private TMP_Text _moneyText;
+
+        public int Money { private set; get; }
+
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
+            GainMoney(20);
         }
 
         private void Update()
@@ -29,6 +40,13 @@ namespace LudumDare57.Manager
             if (_players.Count == 0) return;
 
             _targetFollow.position = _players.Select(x => x.transform.position).Aggregate((a, b) => a + b) / _players.Count;
+        }
+
+        public void GainMoney(int amount)
+        {
+            Money += amount;
+            _moneyText.text = $"{Money}";
+            ShopManager.Instance.UpdateShopUI(Money);
         }
 
         public void Register(PlayerController pc)

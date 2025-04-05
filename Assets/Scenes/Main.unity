@@ -615,10 +615,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 980448064}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1968997206}
+        m_TargetAssemblyTypeName: LudumDare57.Manager.ShopManager, Assembly-CSharp
+        m_MethodName: UpgradeDrill
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 951690932}
   - component: {fileID: 951690931}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -806,7 +806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 783b5ff36b09e67409edd1ab9227cf25, type: 2}
   m_sharedMaterial: {fileID: 1671840820091271635, guid: 783b5ff36b09e67409edd1ab9227cf25, type: 2}
@@ -1331,6 +1331,10 @@ PrefabInstance:
       propertyPath: _healthContainer
       value: 
       objectReference: {fileID: 551842044}
+    - target: {fileID: 4425878580000714251, guid: f16a402bb14616448b02944b9e889933, type: 3}
+      propertyPath: _upgradedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3849f29431def7542a259e6ee48b1270, type: 3}
     - target: {fileID: 7507291997872374461, guid: f16a402bb14616448b02944b9e889933, type: 3}
       propertyPath: m_Size.x
       value: 1.28
@@ -2068,7 +2072,7 @@ GameObject:
   - component: {fileID: 1801400470}
   - component: {fileID: 1801400469}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2281,6 +2285,7 @@ GameObject:
   - component: {fileID: 1968997203}
   - component: {fileID: 1968997204}
   - component: {fileID: 1968997205}
+  - component: {fileID: 1968997206}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2341,6 +2346,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cam: {fileID: 519420031}
   _targetFollow: {fileID: 1465471350}
+  _moneyText: {fileID: 1377712271}
+--- !u!114 &1968997206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968997202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c70c64927ff324eb3ea357259b3307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgrades:
+  - Button: {fileID: 594357615}
+    Price: 200
+    MoneyLabel: {fileID: 951690931}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
