@@ -32,7 +32,7 @@ namespace LudumDare57.Enemy
             yield return new WaitForSeconds(Random.Range(0f, 2f));
             while (true)
             {
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(1f);
 
                 _target = PlayerManager.Instance.GetClosest(transform.position);
                 if (_target != null && Vector2.Distance(transform.position, _target.transform.position) < 10f)
@@ -55,6 +55,9 @@ namespace LudumDare57.Enemy
         }
 
         public virtual void OnDestroy()
+        { }
+
+        public void ToggleHighlight(bool _)
         { }
     }
 }

@@ -8,7 +8,19 @@ namespace LudumDare57.Prop
 
         public GameObject GameObject => gameObject;
 
+        private SpriteRenderer _sr;
+
+        private void Awake()
+        {
+            _sr = GetComponent<SpriteRenderer>();
+        }
+
         public void OnDestroy()
         { }
+
+        public void ToggleHighlight(bool value)
+        {
+            _sr.color = value ? Color.red : Color.white;
+        }
     }
 }

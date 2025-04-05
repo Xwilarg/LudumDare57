@@ -18,7 +18,7 @@ namespace LudumDare57.Enemy
         private IEnumerator WaitAndTeleport()
         {
             _hintInstance = Instantiate(_hintPrefab, _target.transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.75f);
             transform.position = _hintInstance.transform.position;
             Destroy(_hintInstance);
         }

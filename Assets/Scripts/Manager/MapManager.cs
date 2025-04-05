@@ -82,23 +82,34 @@ namespace LudumDare57.Manager
                     );
                 }
             }
+            var size = (int)Random.Range(_genInfo.MapGenWidth, 2f * _genInfo.MapGenWidth / 3f);
+            var xStart = (int)Random.Range(-_genInfo.MapGenWidth, -_genInfo.MapGenWidth / 2f);
             for (int y = 0; y < _genInfo.AreaInterSpacing; y++)
             {
-                SpawnTile(
-                    x: -_genInfo.MapGenWidth,
-                    y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - y,
-                    destructible: false
-                );
-                SpawnTile(
-                    x: _genInfo.MapGenWidth,
-                    y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - y,
-                    destructible: false
-                );
+                for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
+                {
+                    if (x < xStart || x >= size)
+                    {
+                        SpawnTile(
+                            x: x,
+                            y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - y,
+                            destructible: (yOffset != 0 || y != 0 || x < 0 || x > 4) && Mathf.Abs(x) != _genInfo.MapGenWidth
+                        );
+                    }
+                    else if (Mathf.Abs(x) != _genInfo.MapGenWidth)
+                    {
+                        SpawnTile(
+                            x: _genInfo.MapGenWidth,
+                            y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - y,
+                            destructible: false
+                        );
+                    }
+                }
             }
             var enemyCount = Random.Range(_genInfo.EnemyPerArea.Min, _genInfo.EnemyPerArea.Max + 1);
             for (int i = 0; i < enemyCount; i++)
             {
-                var spawnX = Random.Range(-_genInfo.MapGenWidth + 1, _genInfo.MapGenWidth - 1) * TileSize;
+                var spawnX = Random.Range(xStart, xStart + size) * TileSize;
                 var spawnY = Random.Range(
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing - 1f),
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing / 2f)

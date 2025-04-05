@@ -57,12 +57,17 @@ namespace LudumDare57.Player
                 if (c.gameObject.TryGetComponent<IDestructible>(out var d) && !_targetedBlocks.Any(tb => tb.GameObject.GetInstanceID() == id))
                 {
                     _targetedBlocks.Add(d);
+                    d.ToggleHighlight(true);
                 }
             });
             _drillTrigger.OnTriggerExitEvt.AddListener((c) =>
             {
-                var id = c.gameObject.GetInstanceID();
-                _targetedBlocks.RemoveAll(bl => bl.GameObject.GetInstanceID() == id);
+                if (c.gameObject.TryGetComponent<IDestructible>(out var d))
+                {
+                    d.ToggleHighlight(false);
+                    var id = c.gameObject.GetInstanceID();
+                    _targetedBlocks.RemoveAll(bl => bl.GameObject.GetInstanceID() == id);
+                }
             });
             _triggerColl = _drillTrigger.GetComponent<CircleCollider2D>();
         }
