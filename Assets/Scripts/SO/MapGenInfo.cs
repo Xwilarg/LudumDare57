@@ -6,5 +6,7 @@ namespace LudumDare57.SO
     public class MapGenInfo : ScriptableObject
     {
         public int MapGenWidth;
+        public int AreaHeight;
+        public int AreaInterSpacing;
     }
 }

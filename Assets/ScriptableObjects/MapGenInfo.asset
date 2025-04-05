@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: MapGenInfo
   m_EditorClassIdentifier: 
   MapGenWidth: 10
+  AreaHeight: 10
+  AreaInterSpacing: 6

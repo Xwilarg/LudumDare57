@@ -15,30 +15,57 @@ namespace LudumDare57.Manager
         [SerializeField]
         private GameObject _blockPrefab;
 
+        private GameObject _mapContainer;
+
         private const float TileSize = 1.28f;
         private const int GameTopAreaY = -1;
-
-        private GameObject _mapContainer;
 
         private void Awake()
         {
             _mapContainer = new GameObject("Map");
 
-            for (int y = GameTopAreaY; y > -10; y--)
+            for (int area = 0; area < 5; area++)
             {
-                for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
-                {
-                    SpawnTile(x, y, destructible: Mathf.Abs(x) != _genInfo.MapGenWidth);
-                }
+                GenerateArea(area);
             }
             SpawnWall(-_genInfo.MapGenWidth, 1f);
             SpawnWall(_genInfo.MapGenWidth, 1f);
         }
 
+        private void GenerateArea(int yOffset)
+        {
+            for (int y = 0; y < _genInfo.AreaHeight; y++)
+            {
+                for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
+                {
+                    SpawnTile(
+                        x: x,
+                        y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - y,
+                        destructible: Mathf.Abs(x) != _genInfo.MapGenWidth
+                    );
+                }
+            }
+            for (int y = 0; y < _genInfo.AreaInterSpacing; y++)
+            {
+                SpawnTile(
+                    x: -_genInfo.MapGenWidth,
+                    y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - y,
+                    destructible: false
+                );
+                SpawnTile(
+                    x: _genInfo.MapGenWidth,
+                    y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - y,
+                    destructible: false
+                );
+            }
+        }
+
         private void SpawnWall(int x, float sizeX)
         {
-            var wall = new GameObject("Wall", typeof(BoxCollider2D));
-            wall.layer = LayerMask.NameToLayer("Map");
+            var wall = new GameObject("Wall", typeof(BoxCollider2D))
+            {
+                layer = LayerMask.NameToLayer("Map")
+            };
             wall.transform.position = new Vector2((x + (sizeX * (x < 0f ? -1f : 1f))) * TileSize, 0f);
             wall.transform.parent = _mapContainer.transform;
             var coll = wall.GetComponent<BoxCollider2D>();
