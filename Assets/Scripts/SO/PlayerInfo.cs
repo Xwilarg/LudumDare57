@@ -9,6 +9,8 @@ namespace LudumDare57.SO
         public float Speed;
         public float JumpForce;
         public float JumpCooldown;
+        [Tooltip("Speed at which the player is throw away when hitting an enemy")] public float HurtSpeed;
+        public float HurtDuration;
 
         [Header("Drilling")]
         [Tooltip("Player speed while drilling")] public float DrillingSpeed;
