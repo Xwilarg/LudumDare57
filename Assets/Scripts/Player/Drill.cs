@@ -1,4 +1,7 @@
 using LudumDare57.SO;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,6 +27,8 @@ namespace LudumDare57.Player
         public bool IsDrilling => _drillingDir != null;
         public Vector2 DrilligDir => _drillingDir.Value;
 
+        private readonly List<GameObject> _targetedBlocks = new();
+
         private void Awake()
         {
             var pc = GetComponent<PlayerController>();
@@ -32,10 +37,24 @@ namespace LudumDare57.Player
 
             _drillSr = _drill.GetComponent<SpriteRenderer>();
             _drillBaseColor = _drillSr.color;
+
+            _drillTrigger.OnTriggerEnterEvt.AddListener((c) =>
+            {
+                if (c.CompareTag("Destructible"))
+                {
+                    _targetedBlocks.Add(c.gameObject);
+                }
+            });
+            _drillTrigger.OnTriggerExitEvt.AddListener((c) =>
+            {
+                var id = c.gameObject.GetInstanceID();
+                _targetedBlocks.RemoveAll(bl => bl.gameObject.GetInstanceID() == id);
+            });
         }
 
         private void Update()
         {
+            // Update drill timer
             if (!_canDrill)
             {
                 _drillTimer -= Time.deltaTime;
@@ -58,12 +77,23 @@ namespace LudumDare57.Player
                 }
             }
 
+            // Update drill object to follow mouse
             if (_drillingDir == null) // Can't change direction while drilling
             {
                 var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 var dir = ((Vector2)(worldMouse - transform.position)).normalized;
                 _drill.transform.up = dir;
                 _drill.transform.position = transform.position + _drill.transform.up;
+            }
+
+            // Update drill to destroy blocks in range
+            if (_drillingDir != null)
+            {
+                for (int i = _targetedBlocks.Count - 1; i >= 0; i--)
+                {
+                    Destroy(_targetedBlocks[i]);
+                }
+                _targetedBlocks.Clear();
             }
         }
 
