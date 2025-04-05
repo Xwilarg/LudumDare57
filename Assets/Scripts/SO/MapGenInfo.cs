@@ -10,6 +10,7 @@ namespace LudumDare57.SO
         public int AreaInterSpacing;
 
         public Range<int> EnemyPerArea;
+        public float GoldChance;
     }
 
     [System.Serializable]

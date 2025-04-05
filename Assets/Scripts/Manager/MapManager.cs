@@ -1,5 +1,7 @@
 using LudumDare57.Prop;
 using LudumDare57.SO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -49,7 +51,7 @@ namespace LudumDare57.Manager
                     SpawnTile(
                         x: x,
                         y: GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - y,
-                        destructible: Mathf.Abs(x) != _genInfo.MapGenWidth
+                        destructible: (y != 0 || x != 0) && Mathf.Abs(x) != _genInfo.MapGenWidth
                     );
                 }
             }
@@ -93,17 +95,30 @@ namespace LudumDare57.Manager
         private void SpawnTile(int x, int y, bool destructible)
         {
             var isOnTop = y == GameTopAreaY;
-            var availables = _tiles.Where(x => x.IsDestructible == destructible).OrderBy(x => isOnTop == x.IsOnTop ? 0 : 1);
-            var first = availables.First();
+            IEnumerable<TileInfo> availables = _tiles.Where(x => x.IsDestructible == destructible).OrderBy(x => isOnTop == x.IsOnTop ? 0 : 1);
 
             var go = Instantiate(_blockPrefab, _mapContainer.transform);
             go.transform.position = new Vector2(x, y) * TileSize;
-            go.GetComponent<SpriteRenderer>().sprite = first.Sprites[Random.Range(0, first.Sprites.Length)];
             if (destructible)
             {
                 var bl = go.AddComponent<DestructibleBlock>();
-                bl.MoneyGained = Random.Range(1, 3);
+                if (isOnTop)
+                {
+                    bl.MoneyGained = Random.Range(0, 2);
+                }
+                else
+                {
+                    var lucky = Random.Range(0, 100) < _genInfo.GoldChance;
+                    if (lucky)
+                    {
+                        availables = _tiles.Where(x => x.IsValuable);
+                        bl.MoneyGained = Random.Range(10, 30);
+                    }
+                    else bl.MoneyGained = Random.Range(0, 2);
+                }
             }
+            var first = availables.First();
+            go.GetComponent<SpriteRenderer>().sprite = first.Sprites[Random.Range(0, first.Sprites.Length)];
         }
     }
 }

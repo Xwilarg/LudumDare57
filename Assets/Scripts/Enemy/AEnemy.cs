@@ -8,7 +8,7 @@ namespace LudumDare57.Enemy
     {
         protected Rigidbody2D _rb;
 
-        public int MoneyGained => Random.Range(50, 76);
+        public int MoneyGained => Random.Range(20, 50);
 
         public GameObject GameObject => gameObject;
 

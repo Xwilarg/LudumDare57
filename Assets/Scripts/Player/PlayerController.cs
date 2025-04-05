@@ -98,6 +98,7 @@ namespace LudumDare57.Player
         {
             transform.position = Vector2.zero;
             _drill.ResetDrill();
+            _hurtTimer = 0f;
 
             for (int c = 0; c < _healthContainer.childCount; c++) Destroy(_healthContainer.GetChild(c).gameObject);
             for (int i = 0; i < _info.HealthCount; i++)

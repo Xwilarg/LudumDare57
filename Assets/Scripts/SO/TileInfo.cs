@@ -9,5 +9,6 @@ namespace LudumDare57.SO
 
         public bool IsOnTop;
         public bool IsDestructible;
+        public bool IsValuable;
     }
 }

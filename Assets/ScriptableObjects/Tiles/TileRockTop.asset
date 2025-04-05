@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae86121d1717d2d4c8d786668eb8410f, type: 3}
-  m_Name: MapGenInfo
+  m_Script: {fileID: 11500000, guid: ccd148af7bdbc324493f03786d221eb9, type: 3}
+  m_Name: TileRockTop
   m_EditorClassIdentifier: 
-  MapGenWidth: 10
-  AreaHeight: 10
-  AreaInterSpacing: 6
-  EnemyPerArea:
-    Min: 3
-    Max: 5
-  GoldChance: 5
+  Sprites:
+  - {fileID: 21300000, guid: 0fe3927993ad8724f9f4b1a9985cd342, type: 3}
+  IsOnTop: 1
+  IsDestructible: 0
