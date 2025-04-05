@@ -1,3 +1,4 @@
+using LudumDare57.Prop;
 using LudumDare57.SO;
 using System.Linq;
 using UnityEngine;
@@ -98,7 +99,11 @@ namespace LudumDare57.Manager
             var go = Instantiate(_blockPrefab, _mapContainer.transform);
             go.transform.position = new Vector2(x, y) * TileSize;
             go.GetComponent<SpriteRenderer>().sprite = first.Sprites[Random.Range(0, first.Sprites.Length)];
-            if (destructible) go.tag = "Destructible";
+            if (destructible)
+            {
+                var bl = go.AddComponent<DestructibleBlock>();
+                bl.MoneyGained = Random.Range(1, 3);
+            }
         }
     }
 }

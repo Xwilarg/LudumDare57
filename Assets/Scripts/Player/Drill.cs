@@ -1,6 +1,6 @@
 using LudumDare57.Manager;
+using LudumDare57.Prop;
 using LudumDare57.SO;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +20,7 @@ namespace LudumDare57.Player
         [SerializeField]
         private GameObject _breakEffect;
 
+        private PlayerController _controller;
         private PlayerInfo _info;
 
         private Vector2? _drillingDir;
@@ -30,14 +31,12 @@ namespace LudumDare57.Player
         public bool IsDrilling => _drillingDir != null;
         public Vector2 DrilligDir => _drillingDir.Value;
 
-        private readonly List<GameObject> _targetedBlocks = new();
-
-        private string[] _drillables = new[] { "Destructible", "Enemy" };
+        private readonly List<IDestructible> _targetedBlocks = new();
 
         private void Awake()
         {
-            var pc = GetComponent<PlayerController>();
-            _info = pc.Info;
+            _controller = GetComponent<PlayerController>();
+            _info = _controller.Info;
 
             _drillSr = _drill.GetComponent<SpriteRenderer>();
             _drillBaseColor = _drillSr.color;
@@ -45,15 +44,15 @@ namespace LudumDare57.Player
             _drillTrigger.OnTriggerEnterEvt.AddListener((c) =>
             {
                 var id = c.gameObject.GetInstanceID();
-                if (_drillables.Any(x => c.CompareTag(x)) && !_targetedBlocks.Any(tb => tb.gameObject.GetInstanceID() == id))
+                if (c.gameObject.TryGetComponent<IDestructible>(out var d) && !_targetedBlocks.Any(tb => tb.GameObject.GetInstanceID() == id))
                 {
-                    _targetedBlocks.Add(c.gameObject);
+                    _targetedBlocks.Add(d);
                 }
             });
             _drillTrigger.OnTriggerExitEvt.AddListener((c) =>
             {
                 var id = c.gameObject.GetInstanceID();
-                _targetedBlocks.RemoveAll(bl => bl.gameObject.GetInstanceID() == id);
+                _targetedBlocks.RemoveAll(bl => bl.GameObject.GetInstanceID() == id);
             });
         }
 
@@ -94,12 +93,15 @@ namespace LudumDare57.Player
             // Update drill to destroy blocks in range
             if (_drillingDir != null)
             {
+                int amountGained = 0;
                 for (int i = _targetedBlocks.Count - 1; i >= 0; i--)
                 {
                     var bl = _targetedBlocks[i];
-                    Destroy(Instantiate(_breakEffect, bl.transform.position, Quaternion.identity), .2f);
-                    Destroy(bl);
+                    amountGained += bl.MoneyGained;
+                    Destroy(Instantiate(_breakEffect, bl.GameObject.transform.position, Quaternion.identity), .2f);
+                    Destroy(bl.GameObject);
                 }
+                _controller.GainMoney(amountGained);
                 _targetedBlocks.Clear();
             }
         }

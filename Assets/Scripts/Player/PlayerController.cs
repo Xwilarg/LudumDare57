@@ -1,6 +1,5 @@
 using LudumDare57.Manager;
 using LudumDare57.SO;
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,7 +22,10 @@ namespace LudumDare57.Player
 
         [SerializeField]
         private GameObject _healthPrefab;
-        private readonly List<GameObject> _lifes = new();
+        private readonly List<GameObject> _lives = new();
+
+        [SerializeField]
+        private TMP_Text _moneyText;
 
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
@@ -35,6 +37,8 @@ namespace LudumDare57.Player
 
         private Drill _drill;
 
+        private int _money;
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -42,6 +46,7 @@ namespace LudumDare57.Player
             _sr = GetComponent<SpriteRenderer>();
 
             ResetPlayer();
+            GainMoney(20);
         }
 
         private void Start()
@@ -77,10 +82,16 @@ namespace LudumDare57.Player
                 _hurtTimer = _info.HurtDuration;
                 _hurtDirection = (transform.position - collision.collider.transform.position).normalized;
 
-                Destroy(_lifes[0]);
-                _lifes.RemoveAt(0);
-                if (_lifes.Count == 0) ResetPlayer();
+                Destroy(_lives[0]);
+                _lives.RemoveAt(0);
+                if (_lives.Count == 0) ResetPlayer();
             }
+        }
+
+        public void GainMoney(int amount)
+        {
+            _money += amount;
+            _moneyText.text = $"{_money}";
         }
 
         private void ResetPlayer()
@@ -91,7 +102,7 @@ namespace LudumDare57.Player
             for (int c = 0; c < _healthContainer.childCount; c++) Destroy(_healthContainer.GetChild(c).gameObject);
             for (int i = 0; i < _info.HealthCount; i++)
             {
-                _lifes.Add(Instantiate(_healthPrefab, _healthContainer));
+                _lives.Add(Instantiate(_healthPrefab, _healthContainer));
             }
         }
 
