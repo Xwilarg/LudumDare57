@@ -16,6 +16,9 @@ namespace LudumDare57.Player
         [SerializeField]
         private TriggerDetector _drillTrigger;
 
+        [SerializeField]
+        private GameObject _breakEffect;
+
         private PlayerInfo _info;
         private Camera _cam;
 
@@ -29,6 +32,8 @@ namespace LudumDare57.Player
 
         private readonly List<GameObject> _targetedBlocks = new();
 
+        private string[] _drillables = new[] { "Destructible", "Enemy" };
+
         private void Awake()
         {
             var pc = GetComponent<PlayerController>();
@@ -40,7 +45,7 @@ namespace LudumDare57.Player
 
             _drillTrigger.OnTriggerEnterEvt.AddListener((c) =>
             {
-                if (c.CompareTag("Destructible"))
+                if (_drillables.Any(x => c.CompareTag(x)))
                 {
                     _targetedBlocks.Add(c.gameObject);
                 }
@@ -91,7 +96,9 @@ namespace LudumDare57.Player
             {
                 for (int i = _targetedBlocks.Count - 1; i >= 0; i--)
                 {
-                    Destroy(_targetedBlocks[i]);
+                    var bl = _targetedBlocks[i];
+                    Destroy(Instantiate(_breakEffect, bl.transform.position, Quaternion.identity), .2f);
+                    Destroy(bl);
                 }
                 _targetedBlocks.Clear();
             }

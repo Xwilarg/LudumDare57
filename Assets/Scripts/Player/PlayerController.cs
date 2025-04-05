@@ -1,3 +1,4 @@
+using LudumDare57.Manager;
 using LudumDare57.SO;
 using System.Collections;
 using System.Text;
@@ -15,10 +16,11 @@ namespace LudumDare57.Player
 
         [SerializeField]
         private Camera _cam;
+        public Camera PlayerCamera => _cam;
 
         [SerializeField]
         private TMP_Text _depthText;
-        public Camera PlayerCamera => _cam;
+
 
         private Rigidbody2D _rb;
         private float _xMov;
@@ -33,6 +35,11 @@ namespace LudumDare57.Player
             _drill = GetComponent<Drill>();
         }
 
+        private void Start()
+        {
+            PlayerManager.Instance.Register(this);
+        }
+
         private void FixedUpdate()
         {
             if (_drill.IsDrilling) _rb.linearVelocity = _drill.DrilligDir * _info.DrillingSpeed;
@@ -44,6 +51,9 @@ namespace LudumDare57.Player
             var depth = transform.position.y / 2f;
 
             var sign = depth >= 0f ? " " : "-";
+            {
+
+            }
             _depthText.text = $"Depth: {sign}{Mathf.Abs(depth):00 000}m";
         }
 
