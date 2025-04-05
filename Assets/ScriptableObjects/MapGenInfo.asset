@@ -15,3 +15,6 @@ MonoBehaviour:
   MapGenWidth: 10
   AreaHeight: 10
   AreaInterSpacing: 6
+  EnemyPerArea:
+    Min: 3
+    Max: 5

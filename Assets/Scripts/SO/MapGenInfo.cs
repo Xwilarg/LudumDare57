@@ -8,5 +8,15 @@ namespace LudumDare57.SO
         public int MapGenWidth;
         public int AreaHeight;
         public int AreaInterSpacing;
+
+        public Range<int> EnemyPerArea;
     }
+
+    [System.Serializable]
+    public record Range<T>
+    {
+        public T Min;
+        public T Max;
+    }
+
 }
