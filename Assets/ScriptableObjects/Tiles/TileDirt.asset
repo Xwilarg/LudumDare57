@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TileDirt
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 4574382606980964885, guid: 7918dbadfddc01f42a80596d5b97cf6b, type: 3}
+  - {fileID: 21300000, guid: 7918dbadfddc01f42a80596d5b97cf6b, type: 3}
   IsOnTop: 0
   IsDestructible: 1

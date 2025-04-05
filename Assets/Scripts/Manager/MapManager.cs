@@ -24,9 +24,12 @@ namespace LudumDare57.Manager
         {
             _mapContainer = new GameObject("Map");
 
-            for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
+            for (int y = GameTopAreaY; y > -10; y--)
             {
-                SpawnTile(x, GameTopAreaY, true);
+                for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
+                {
+                    SpawnTile(x, y, true);
+                }
             }
         }
 
@@ -37,7 +40,7 @@ namespace LudumDare57.Manager
             var first = availables.First();
 
             var go = Instantiate(_blockPrefab, _mapContainer.transform);
-            go.transform.position = new Vector2(x, GameTopAreaY) * TileSize;
+            go.transform.position = new Vector2(x, y) * TileSize;
             go.GetComponent<SpriteRenderer>().sprite = first.Sprites[Random.Range(0, first.Sprites.Length)];
             if (destructible) go.tag = "Destructible";
         }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TileGrass
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: -3892056898800727171, guid: f94914d08f2463b4fa3bdca67c2bc5c0, type: 3}
+  - {fileID: 21300000, guid: f94914d08f2463b4fa3bdca67c2bc5c0, type: 3}
   IsOnTop: 1
   IsDestructible: 1
