@@ -50,5 +50,8 @@ namespace LudumDare57.Enemy
             var dir = (_target.transform.position - transform.position).normalized;
             _eye.localPosition = dir * .25f;
         }
+
+        public virtual void OnDestroy()
+        { }
     }
 }

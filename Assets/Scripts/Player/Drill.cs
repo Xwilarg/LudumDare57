@@ -117,6 +117,7 @@ namespace LudumDare57.Player
                     var bl = _targetedBlocks[i];
                     amountGained += bl.MoneyGained;
                     Destroy(Instantiate(_breakEffect, bl.GameObject.transform.position, Quaternion.identity), .2f);
+                    bl.OnDestroy();
                     Destroy(bl.GameObject);
                 }
                 PlayerManager.Instance.GainMoney(amountGained);

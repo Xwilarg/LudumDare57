@@ -7,5 +7,8 @@ namespace LudumDare57.Prop
         public int MoneyGained { set; get; }
 
         public GameObject GameObject => gameObject;
+
+        public void OnDestroy()
+        { }
     }
 }
