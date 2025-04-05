@@ -30,11 +30,6 @@ namespace LudumDare57.Manager
             Instance = this;
         }
 
-        private void Start()
-        {
-            GainMoney(20);
-        }
-
         private void Update()
         {
             if (_players.Count == 0) return;

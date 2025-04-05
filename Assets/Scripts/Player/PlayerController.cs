@@ -29,8 +29,11 @@ namespace LudumDare57.Player
         private float _xMov;
 
         private bool _canJump = true;
+        private bool _isHurtCooldown;
         private float _hurtTimer;
         private Vector2 _hurtDirection;
+
+        private int _maxLife;
 
         private Drill _drill;
 
@@ -40,6 +43,7 @@ namespace LudumDare57.Player
             _drill = GetComponent<Drill>();
             _sr = GetComponent<SpriteRenderer>();
 
+            _maxLife = _info.HealthCount;
             ResetPlayer();
         }
 
@@ -70,7 +74,7 @@ namespace LudumDare57.Player
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.CompareTag("Enemy"))
+            if (collision.collider.CompareTag("Enemy") && !_isHurtCooldown)
             {
                 StartCoroutine(PlayHurtEffect());
                 _hurtTimer = _info.HurtDuration;
@@ -94,8 +98,17 @@ namespace LudumDare57.Player
             _hurtTimer = 0f;
 
             for (int c = 0; c < _healthContainer.childCount; c++) Destroy(_healthContainer.GetChild(c).gameObject);
-            for (int i = 0; i < _info.HealthCount; i++)
+            for (int i = 0; i < _maxLife; i++)
             {
+                _lives.Add(Instantiate(_healthPrefab, _healthContainer));
+            }
+        }
+
+        public void GainLife(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                _maxLife++;
                 _lives.Add(Instantiate(_healthPrefab, _healthContainer));
             }
         }
@@ -110,8 +123,10 @@ namespace LudumDare57.Player
         private IEnumerator PlayHurtEffect()
         {
             _sr.color = Color.red;
+            _isHurtCooldown = true;
             yield return new WaitForSeconds(.1f);
             _sr.color = Color.white;
+            _isHurtCooldown = false;
         }
 
         public void OnMove(InputAction.CallbackContext value)

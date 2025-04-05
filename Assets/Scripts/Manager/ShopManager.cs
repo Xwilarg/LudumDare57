@@ -23,6 +23,7 @@ namespace LudumDare57.Manager
                     u.Button.gameObject.SetActive(false);
                 });
             }
+            UpdateShopUI(0);
         }
 
         public void UpdateShopUI(int totalMoney)
@@ -36,6 +37,11 @@ namespace LudumDare57.Manager
         public void UpgradeDrill()
         {
             PlayerManager.Instance.ForEach(x => x.UpgradeDrill());
+        }
+
+        public void GainHealth()
+        {
+            PlayerManager.Instance.ForEach(x => x.GainLife(1));
         }
     }
 
