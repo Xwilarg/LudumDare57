@@ -4,7 +4,9 @@ using LudumDare57.SO;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace LudumDare57.Player
 {
@@ -117,6 +119,21 @@ namespace LudumDare57.Player
         {
             if (value.phase == InputActionPhase.Started && _canDrill)
             {
+                // Clicking on some UI button shouldn't activate the drill
+                PointerEventData pointerEventData = new(EventSystem.current)
+                {
+                    position = Mouse.current.position.ReadValue()
+                };
+                List<RaycastResult> raycastResultsList = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerEventData, raycastResultsList);
+                for (int i = 0; i < raycastResultsList.Count; i++)
+                {
+                    if (raycastResultsList[i].gameObject.TryGetComponent<Button>(out var _))
+                    {
+                        return;
+                    }
+                }
+
                 var worldMouse = PlayerManager.Instance.Camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 _drillingDir = ((Vector2)(worldMouse - transform.position)).normalized;
 
