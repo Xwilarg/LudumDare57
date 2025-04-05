@@ -3,75 +3,35 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace LudumDare57
+namespace LudumDare57.Player
 {
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
         private PlayerInfo _info;
-
-        [SerializeField]
-        private GameObject _drill;
-        private SpriteRenderer _drillSr;
+        public PlayerInfo Info => _info;
 
         [SerializeField]
         private Camera _cam;
+        public Camera PlayerCamera => _cam;
 
         private Rigidbody2D _rb;
         private float _xMov;
 
         private bool _canJump = true;
-        public bool _canDrill = true;
 
-        private Vector2? _drillingDir;
-        private Color _drillBaseColor;
-
-        private float _drillTimer;
+        private Drill _drill;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _drillSr = _drill.GetComponent<SpriteRenderer>();
-            _drillBaseColor = _drillSr.color;
-        }
-
-        private void Update()
-        {
-            if (!_canDrill)
-            {
-                _drillTimer -= Time.deltaTime;
-
-                // Update drill color depending of how long we have been drilling
-                if (_drillingDir != null) _drillSr.color = Color.Lerp(_drillBaseColor, Color.red, 1f - (_drillTimer / _info.DrillDuration));
-                else _drillSr.color = Color.Lerp(Color.red, _drillBaseColor, 1f - (_drillTimer / _info.DrillingCooldown));
-
-                if (_drillTimer <= 0f)
-                {
-                    if (_drillingDir != null) // End of drill, start cooldown
-                    {
-                        _drillingDir = null;
-                        _drillTimer = _info.DrillingCooldown;
-                    }
-                    else // End of cooldown, we can use the drill again
-                    {
-                        _canDrill = true;
-                    }
-                }
-            }
-
-            if (_drillingDir == null) // Can't change direction while drilling
-            {
-                var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                var dir = ((Vector2)(worldMouse - transform.position)).normalized;
-                _drill.transform.up = dir;
-                _drill.transform.position = transform.position + _drill.transform.up;
-            }
+            _drill = GetComponent<Drill>();
         }
 
         private void FixedUpdate()
         {
-            if (_drillingDir == null) _rb.linearVelocity = new Vector2(_xMov * _info.Speed, _rb.linearVelocityY);
-            else _rb.linearVelocity = _drillingDir.Value * _info.DrillingSpeed;
+            if (_drill.IsDrilling) _rb.linearVelocity = _drill.DrilligDir * _info.DrillingSpeed;
+            else _rb.linearVelocity = new Vector2(_xMov * _info.Speed, _rb.linearVelocityY);
         }
 
         private IEnumerator PlayJumpCooldown() // Prevent player from spamming jump button to launch upward
@@ -99,18 +59,6 @@ namespace LudumDare57
                     _rb.AddForce(Vector2.up * _info.JumpForce, ForceMode2D.Impulse);
                     StartCoroutine(PlayJumpCooldown());
                 }
-            }
-        }
-
-        public void OnDrill(InputAction.CallbackContext value)
-        {
-            if (value.phase == InputActionPhase.Started && _canDrill)
-            {
-                var worldMouse = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                _drillingDir = ((Vector2)(worldMouse - transform.position)).normalized;
-
-                _drillTimer = _info.DrillDuration;
-                _canDrill = false;
             }
         }
 

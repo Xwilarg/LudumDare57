@@ -148,7 +148,8 @@ Transform:
   m_LocalPosition: {x: 0.8, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1495736940}
   m_Father: {fileID: 1791472807}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &376018244
@@ -561,6 +562,100 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1495736939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1495736940}
+  - component: {fileID: 1495736941}
+  - component: {fileID: 1495736942}
+  - component: {fileID: 1495736943}
+  m_Layer: 6
+  m_Name: DrillTriggerDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1495736940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495736939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.79, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 376018243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1495736941
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495736939}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.000000014901161, y: 0.0000009536743}
+  m_Radius: 0.5000001
+--- !u!114 &1495736942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495736939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4255ef4863c4b4fa28bc9ee787c422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1495736943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495736939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7411dafb59bace54f9c1351b557180ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1791472805
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +669,7 @@ GameObject:
   - component: {fileID: 1791472808}
   - component: {fileID: 1791472809}
   - component: {fileID: 1791472810}
+  - component: {fileID: 1791472811}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -731,9 +827,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _info: {fileID: 11400000, guid: 2cf9be120504f874db1b63ba8ba1d291, type: 2}
-  _drill: {fileID: 376018242}
   _cam: {fileID: 519420031}
-  _canDrill: 1
+--- !u!114 &1791472811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791472805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db72c933a7124c54586c86eef4e76992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _drill: {fileID: 376018242}
+  _drillTrigger: {fileID: 1495736943}
 --- !u!1 &2047811700
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,8 +921,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1791472810}
-        m_TargetAssemblyTypeName: LudumDare57.PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1791472811}
+        m_TargetAssemblyTypeName: LudumDare57.Player.Drill, Assembly-CSharp
         m_MethodName: OnDrill
         m_Mode: 0
         m_Arguments:
