@@ -39,6 +39,14 @@ namespace LudumDare57.Manager
             }
             SpawnWall(-_genInfo.MapGenWidth, 1f);
             SpawnWall(_genInfo.MapGenWidth, 1f);
+            for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
+            {
+                SpawnTile(
+                    x: x,
+                    y: GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)),
+                    destructible: false
+                );
+            }
         }
 
         private void GenerateArea(int yOffset)
