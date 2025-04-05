@@ -70,8 +70,8 @@ namespace LudumDare57.Manager
             {
                 var spawnX = Random.Range(-_genInfo.MapGenWidth + 1, _genInfo.MapGenWidth - 1) * TileSize;
                 var spawnY = Random.Range(
-                    GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - 2f,
-                    GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - 1f
+                    GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing - 1f),
+                    GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing / 2f)
                 ) * TileSize;
                 Instantiate(_enemyPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
             }
