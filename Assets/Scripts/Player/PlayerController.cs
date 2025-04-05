@@ -1,5 +1,7 @@
 using LudumDare57.SO;
 using System.Collections;
+using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +15,9 @@ namespace LudumDare57.Player
 
         [SerializeField]
         private Camera _cam;
+
+        [SerializeField]
+        private TMP_Text _depthText;
         public Camera PlayerCamera => _cam;
 
         private Rigidbody2D _rb;
@@ -32,6 +37,14 @@ namespace LudumDare57.Player
         {
             if (_drill.IsDrilling) _rb.linearVelocity = _drill.DrilligDir * _info.DrillingSpeed;
             else _rb.linearVelocity = new Vector2(_xMov * _info.Speed, _rb.linearVelocityY);
+        }
+
+        private void Update()
+        {
+            var depth = transform.position.y / 2f;
+
+            var sign = depth >= 0f ? " " : "-";
+            _depthText.text = $"Depth: {sign}{Mathf.Abs(depth):00 000}m";
         }
 
         private IEnumerator PlayJumpCooldown() // Prevent player from spamming jump button to launch upward

@@ -17,4 +17,4 @@ MonoBehaviour:
   JumpCooldown: 0.2
   DrillingSpeed: 30
   DrillingCooldown: 2
-  DrillDuration: 0.5
+  DrillDuration: 0.2

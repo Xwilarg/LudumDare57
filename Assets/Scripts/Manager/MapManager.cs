@@ -31,6 +31,18 @@ namespace LudumDare57.Manager
                     SpawnTile(x, y, true);
                 }
             }
+            SpawnWall(-_genInfo.MapGenWidth, 1f);
+            SpawnWall(_genInfo.MapGenWidth, 1f);
+        }
+
+        private void SpawnWall(int x, float sizeX)
+        {
+            var wall = new GameObject("Wall", typeof(BoxCollider2D));
+            wall.layer = LayerMask.NameToLayer("Map");
+            wall.transform.position = new Vector2(x - sizeX, 0f);
+            wall.transform.parent = _mapContainer.transform;
+            var coll = wall.GetComponent<BoxCollider2D>();
+            coll.size = new Vector2(sizeX, 50f);
         }
 
         private void SpawnTile(int x, int y, bool destructible)
