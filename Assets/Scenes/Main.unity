@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000e3221f8c
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1366,7 +1366,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5adda107346cf3945a4c9aa1ca937871, type: 2}
   _blockPrefab: {fileID: 9024349772116854250, guid: 307dc0ef4b9bd014aa2cf8dc1fa1b2d0, type: 3}
   _genBoundingBox: {fileID: 979135925}
-  _enemyPrefab: {fileID: 5600395327419131041, guid: 49398d675dc3cef48a23d774a71c6870, type: 3}
+  _enemyPrefabs:
+  - {fileID: 5600395327419131041, guid: 49398d675dc3cef48a23d774a71c6870, type: 3}
+  - {fileID: 2576605515115211709, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
 --- !u!114 &1968997205
 MonoBehaviour:
   m_ObjectHideFlags: 0

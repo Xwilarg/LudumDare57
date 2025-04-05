@@ -22,7 +22,7 @@ namespace LudumDare57.Manager
         private BoxCollider2D _genBoundingBox;
 
         [SerializeField]
-        private GameObject _enemyPrefab;
+        private GameObject[] _enemyPrefabs;
 
         private GameObject _mapContainer;
 
@@ -76,7 +76,7 @@ namespace LudumDare57.Manager
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing - 1f),
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing / 2f)
                 ) * TileSize;
-                Instantiate(_enemyPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                Instantiate(_enemyPrefabs[Random.Range(0, _enemyPrefabs.Length)], new Vector2(spawnX, spawnY), Quaternion.identity);
             }
         }
 

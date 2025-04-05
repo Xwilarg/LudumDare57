@@ -1,3 +1,5 @@
+using LudumDare57.Manager;
+using LudumDare57.Player;
 using LudumDare57.Prop;
 using System.Collections;
 using UnityEngine;
@@ -7,6 +9,11 @@ namespace LudumDare57.Enemy
     public abstract class AEnemy : MonoBehaviour, IDestructible
     {
         protected Rigidbody2D _rb;
+
+        protected PlayerController _target;
+
+        [SerializeField]
+        private Transform _eye;
 
         public int MoneyGained => Random.Range(20, 50);
 
@@ -26,8 +33,22 @@ namespace LudumDare57.Enemy
             while (true)
             {
                 yield return new WaitForSeconds(2f);
-                DoAction();
+
+                _target = PlayerManager.Instance.GetClosest(transform.position);
+                if (_target != null) DoAction();
             }
+        }
+
+        private void Update()
+        {
+            if (_target == null)
+            {
+                _eye.transform.localPosition = Vector3.zero;
+                return;
+            }
+
+            var dir = (_target.transform.position - transform.position).normalized;
+            _eye.localPosition = dir * .25f;
         }
     }
 }
