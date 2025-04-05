@@ -88,6 +88,11 @@ namespace LudumDare57.Player
             }
         }
 
+        public void UpgradeDrill()
+        {
+            _drill.UpgradeDrill();
+        }
+
         public void GainMoney(int amount)
         {
             _money += amount;

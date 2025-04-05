@@ -18,9 +18,13 @@ namespace LudumDare57.Player
 
         [SerializeField]
         private TriggerDetector _drillTrigger;
+        private CircleCollider2D _triggerColl;
 
         [SerializeField]
         private GameObject _breakEffect;
+
+        [SerializeField]
+        private Sprite _upgradedSprite;
 
         private PlayerController _controller;
         private PlayerInfo _info;
@@ -56,6 +60,13 @@ namespace LudumDare57.Player
                 var id = c.gameObject.GetInstanceID();
                 _targetedBlocks.RemoveAll(bl => bl.GameObject.GetInstanceID() == id);
             });
+            _triggerColl = _drillTrigger.GetComponent<CircleCollider2D>();
+        }
+
+        public void UpgradeDrill()
+        {
+            _triggerColl.radius += 1f;
+            _drillSr.sprite = _upgradedSprite;
         }
 
         private void Update()
