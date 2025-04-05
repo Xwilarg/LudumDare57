@@ -44,7 +44,8 @@ namespace LudumDare57.Player
 
             _drillTrigger.OnTriggerEnterEvt.AddListener((c) =>
             {
-                if (_drillables.Any(x => c.CompareTag(x)))
+                var id = c.gameObject.GetInstanceID();
+                if (_drillables.Any(x => c.CompareTag(x)) && !_targetedBlocks.Any(tb => tb.gameObject.GetInstanceID() == id))
                 {
                     _targetedBlocks.Add(c.gameObject);
                 }
@@ -101,6 +102,13 @@ namespace LudumDare57.Player
                 }
                 _targetedBlocks.Clear();
             }
+        }
+
+        public void ResetDrill()
+        {
+            _drillTimer = 0f;
+            _canDrill = true;
+            _drillSr.color = _drillBaseColor;
         }
 
         public void OnDrill(InputAction.CallbackContext value)

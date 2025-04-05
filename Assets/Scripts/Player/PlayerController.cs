@@ -1,6 +1,8 @@
 using LudumDare57.Manager;
 using LudumDare57.SO;
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +17,13 @@ namespace LudumDare57.Player
 
         [SerializeField]
         private TMP_Text _depthText;
+
+        [SerializeField]
+        private RectTransform _healthContainer;
+
+        [SerializeField]
+        private GameObject _healthPrefab;
+        private readonly List<GameObject> _lifes = new();
 
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
@@ -31,6 +40,8 @@ namespace LudumDare57.Player
             _rb = GetComponent<Rigidbody2D>();
             _drill = GetComponent<Drill>();
             _sr = GetComponent<SpriteRenderer>();
+
+            ResetPlayer();
         }
 
         private void Start()
@@ -65,6 +76,22 @@ namespace LudumDare57.Player
                 StartCoroutine(PlayHurtEffect());
                 _hurtTimer = _info.HurtDuration;
                 _hurtDirection = (transform.position - collision.collider.transform.position).normalized;
+
+                Destroy(_lifes[0]);
+                _lifes.RemoveAt(0);
+                if (_lifes.Count == 0) ResetPlayer();
+            }
+        }
+
+        private void ResetPlayer()
+        {
+            transform.position = Vector2.zero;
+            _drill.ResetDrill();
+
+            for (int c = 0; c < _healthContainer.childCount; c++) Destroy(_healthContainer.GetChild(c).gameObject);
+            for (int i = 0; i < _info.HealthCount; i++)
+            {
+                _lifes.Add(Instantiate(_healthPrefab, _healthContainer));
             }
         }
 

@@ -5,6 +5,9 @@ namespace LudumDare57.SO
     [CreateAssetMenu(menuName = "ScriptableObject/PlayerInfo", fileName = "PlayerInfo")]
     public class PlayerInfo : ScriptableObject
     {
+        [Header("Stats")]
+        public int HealthCount;
+
         [Header("Basic Movements")]
         public float Speed;
         public float JumpForce;

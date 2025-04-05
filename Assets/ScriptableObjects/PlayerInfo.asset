@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1cf720d18ab7144afa2ede1dca0555, type: 3}
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
+  HealthCount: 3
   Speed: 7.5
   JumpForce: 35
   JumpCooldown: 0.2
