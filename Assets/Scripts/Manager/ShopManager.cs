@@ -34,9 +34,14 @@ namespace LudumDare57.Manager
             }
         }
 
-        public void UpgradeDrill()
+        public void UpgradeDrillSize()
         {
-            PlayerManager.Instance.ForEach(x => x.UpgradeDrill());
+            PlayerManager.Instance.ForEach(x => x.UpgradeDrillSize());
+        }
+
+        public void UpgradeDrillCooldown()
+        {
+            PlayerManager.Instance.ForEach(x => x.UpgradeDrillCooldown());
         }
 
         public void GainHealth()

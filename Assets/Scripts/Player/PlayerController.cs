@@ -86,9 +86,14 @@ namespace LudumDare57.Player
             }
         }
 
-        public void UpgradeDrill()
+        public void UpgradeDrillSize()
         {
-            _drill.UpgradeDrill();
+            _drill.UpgradeDrillSize();
+        }
+
+        public void UpgradeDrillCooldown()
+        {
+            _drill.UpgradeDrillCooldown();
         }
 
         private void ResetPlayer()

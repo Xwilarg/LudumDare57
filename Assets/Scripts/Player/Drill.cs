@@ -67,9 +67,13 @@ namespace LudumDare57.Player
             _triggerColl = _drillTrigger.GetComponent<CircleCollider2D>();
         }
 
-        public void UpgradeDrill()
+        public void UpgradeDrillSize()
         {
             _triggerColl.radius += 1f;
+            _drillSr.transform.localScale = new Vector3(_drillSr.transform.localScale.x, _drillSr.transform.localScale.y + .2f, _drillSr.transform.localScale.z);
+        }
+        public void UpgradeDrillCooldown()
+        {
             _drillCooldownRef /= 2f;
             _drillSr.sprite = _upgradedSprite;
         }
