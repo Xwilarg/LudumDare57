@@ -17,6 +17,8 @@ namespace LudumDare57.Enemy
 
         public int MoneyGained => Random.Range(20, 50);
 
+        public float ReactionTime { set; protected get; } = 1f;
+
         public GameObject GameObject => gameObject;
 
         protected virtual void Awake()
@@ -37,7 +39,7 @@ namespace LudumDare57.Enemy
             yield return new WaitForSeconds(Random.Range(0f, 2f));
             while (true)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(ReactionTime);
 
                 _target = PlayerManager.Instance.GetClosest(transform.position);
                 if (_target != null && Vector2.Distance(transform.position, _target.transform.position) < 10f)

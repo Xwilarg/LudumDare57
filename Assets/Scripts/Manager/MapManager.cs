@@ -1,7 +1,9 @@
+using LudumDare57.Enemy;
 using LudumDare57.Prop;
 using LudumDare57.SO;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
 namespace LudumDare57.Manager
@@ -39,7 +41,7 @@ namespace LudumDare57.Manager
             int xStart = 0;
             for (int area = 0; area < _genInfo.AreaCount; area++)
             {
-                GenerateArea(area, out xStart);
+                GenerateArea(area, out xStart, Mathf.Lerp(_genInfo.EnemyReactionTime.Max, _genInfo.EnemyReactionTime.Min, (float)area / _genInfo.AreaCount));
             }
             SpawnWall(-_genInfo.MapGenWidth, 1f);
             SpawnWall(_genInfo.MapGenWidth, 1f);
@@ -70,7 +72,7 @@ namespace LudumDare57.Manager
             }
         }
 
-        private void GenerateArea(int yOffset, out int xStart)
+        private void GenerateArea(int yOffset, out int xStart, float reactTime)
         {
             for (int y = 0; y < _genInfo.AreaHeight; y++)
             {
@@ -116,7 +118,8 @@ namespace LudumDare57.Manager
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing / 2f)
                 ) * TileSize;
                 var possibles = _enemyPrefabs.Take(Mathf.FloorToInt(yOffset / 2f) + 1).ToArray();
-                Instantiate(possibles[Random.Range(0, possibles.Length)], new Vector2(spawnX, spawnY), Quaternion.identity);
+                var en = Instantiate(possibles[Random.Range(0, possibles.Length)], new Vector2(spawnX, spawnY), Quaternion.identity);
+                en.GetComponent<AEnemy>().ReactionTime = reactTime;
             }
         }
 
