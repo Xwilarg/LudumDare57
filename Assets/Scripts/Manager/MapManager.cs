@@ -58,7 +58,7 @@ namespace LudumDare57.Manager
                     SpawnTile(
                         x: x,
                         y: GameTopAreaY - (areaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - y,
-                        destructible: Mathf.Abs(x) != _genInfo.MapGenWidth
+                        destructible: (y != 0 || x != xStart) && Mathf.Abs(x) != _genInfo.MapGenWidth
                         //isObjective: y == 2 && x == 0
                     );
                 }
