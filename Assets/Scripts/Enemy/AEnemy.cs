@@ -34,6 +34,8 @@ namespace LudumDare57.Enemy
 
         public abstract void DoAction();
 
+        public virtual float DistanceSeeMultiplier => 1f;
+
         private IEnumerator Act()
         {
             yield return new WaitForSeconds(Random.Range(0f, 2f));
@@ -42,7 +44,7 @@ namespace LudumDare57.Enemy
                 yield return new WaitForSeconds(ReactionTime);
 
                 _target = PlayerManager.Instance.GetClosest(transform.position);
-                if (_target != null && Vector2.Distance(transform.position, _target.transform.position) < 10f)
+                if (_target != null && Vector2.Distance(transform.position, _target.transform.position) < 15f * DistanceSeeMultiplier)
                 {
                     DoAction();
                 }

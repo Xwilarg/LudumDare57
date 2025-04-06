@@ -6,11 +6,10 @@ namespace LudumDare57.SO
     public class MapGenInfo : ScriptableObject
     {
         public int MapGenWidth;
-        public int AreaCount;
+        public LevelSpawnInfo[] AreaInfo;
         public int AreaHeight;
         public int AreaInterSpacing;
 
-        public Range<int> EnemyPerArea;
         public Range<float> EnemyReactionTime;
         public float GoldChance;
     }
@@ -22,4 +21,10 @@ namespace LudumDare57.SO
         public T Max;
     }
 
+    [System.Serializable]
+    public record LevelSpawnInfo
+    {
+        public Range<int> CorruptedAmount;
+        public Range<int> TotalAmount;
+    }
 }

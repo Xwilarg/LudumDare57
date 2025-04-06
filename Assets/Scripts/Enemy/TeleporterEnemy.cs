@@ -28,5 +28,7 @@ namespace LudumDare57.Enemy
         {
             if (_hintInstance != null) Destroy(_hintInstance);
         }
+
+        public override float DistanceSeeMultiplier => .66f;
     }
 }

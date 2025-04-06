@@ -23,7 +23,7 @@ namespace LudumDare57.Manager
         private BoxCollider2D _genBoundingBox;
 
         [SerializeField]
-        private GameObject[] _enemyPrefabs;
+        private GameObject[] _enemyGoodPrefabs, _enemyBadPrefabs;
 
         [SerializeField]
         private GameObject _exitPrefab;
@@ -38,17 +38,19 @@ namespace LudumDare57.Manager
             _mapContainer = new GameObject("Map");
             _genBoundingBox.size = new Vector2((_genInfo.MapGenWidth * 2f + 1f) * TileSize, _genBoundingBox.size.y);
 
+            var areaCount = _genInfo.AreaInfo.Length;
+
             int xStart = 0;
-            for (int area = 0; area < _genInfo.AreaCount; area++)
+            for (int area = 0; area < areaCount; area++)
             {
-                GenerateArea(area, out xStart, Mathf.Lerp(_genInfo.EnemyReactionTime.Max, _genInfo.EnemyReactionTime.Min, (float)area / _genInfo.AreaCount));
+                GenerateArea(area, out xStart, Mathf.Lerp(_genInfo.EnemyReactionTime.Max, _genInfo.EnemyReactionTime.Min, (float)area / areaCount), _genInfo.AreaInfo[area]);
             }
             SpawnWall(-_genInfo.MapGenWidth, 1f);
             SpawnWall(_genInfo.MapGenWidth, 1f);
 
             Instantiate(_exitPrefab, new Vector2(
                 x: xStart * TileSize,
-                y: (GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) + 1.5f) * TileSize
+                y: (GameTopAreaY - (areaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) + 1.5f) * TileSize
                 ), Quaternion.identity);
             for (int y = 0; y < 3; y++)
             {
@@ -56,7 +58,7 @@ namespace LudumDare57.Manager
                 {
                     SpawnTile(
                         x: x,
-                        y: GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - y,
+                        y: GameTopAreaY - (areaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - y,
                         destructible: Mathf.Abs(x) != _genInfo.MapGenWidth,
                         isObjective: y == 2 && x == 0
                     );
@@ -66,13 +68,13 @@ namespace LudumDare57.Manager
             {
                 SpawnTile(
                     x: x,
-                    y: GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - 3,
+                    y: GameTopAreaY - (areaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - 3,
                     destructible: false
                 );
             }
         }
 
-        private void GenerateArea(int yOffset, out int xStart, float reactTime)
+        private void GenerateArea(int yOffset, out int xStart, float reactTime, LevelSpawnInfo spawnInfo)
         {
             for (int y = 0; y < _genInfo.AreaHeight; y++)
             {
@@ -109,7 +111,8 @@ namespace LudumDare57.Manager
                     }
                 }
             }
-            var enemyCount = Random.Range(_genInfo.EnemyPerArea.Min, _genInfo.EnemyPerArea.Max + 1);
+            var enemyCount = Random.Range(spawnInfo.TotalAmount.Min, spawnInfo.TotalAmount.Max + 1);
+            var corruptedLeft = spawnInfo.CorruptedAmount.Max == 0 ? 0 : Random.Range(spawnInfo.CorruptedAmount.Min, spawnInfo.CorruptedAmount.Max + 1);
             for (int i = 0; i < enemyCount; i++)
             {
                 var spawnX = Random.Range(xStart, xStart + size) * TileSize;
@@ -117,9 +120,11 @@ namespace LudumDare57.Manager
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing - 1f),
                     GameTopAreaY - (yOffset * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) - _genInfo.AreaHeight - (_genInfo.AreaInterSpacing / 2f)
                 ) * TileSize;
-                var possibles = _enemyPrefabs.Take(Mathf.FloorToInt(yOffset / 2f) + 1).ToArray();
+                var possibles = corruptedLeft > 0 ? _enemyBadPrefabs : _enemyGoodPrefabs;
                 var en = Instantiate(possibles[Random.Range(0, possibles.Length)], new Vector2(spawnX, spawnY), Quaternion.identity);
                 en.GetComponent<AEnemy>().ReactionTime = reactTime;
+
+                if (corruptedLeft > 0) corruptedLeft--;
             }
         }
 

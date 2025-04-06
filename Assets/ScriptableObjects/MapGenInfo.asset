@@ -13,13 +13,70 @@ MonoBehaviour:
   m_Name: MapGenInfo
   m_EditorClassIdentifier: 
   MapGenWidth: 10
-  AreaCount: 8
+  AreaInfo:
+  - CorruptedAmount:
+      Min: 0
+      Max: 0
+    TotalAmount:
+      Min: 1
+      Max: 2
+  - CorruptedAmount:
+      Min: 0
+      Max: 0
+    TotalAmount:
+      Min: 1
+      Max: 3
+  - CorruptedAmount:
+      Min: 0
+      Max: 1
+    TotalAmount:
+      Min: 1
+      Max: 3
+  - CorruptedAmount:
+      Min: 0
+      Max: 1
+    TotalAmount:
+      Min: 3
+      Max: 4
+  - CorruptedAmount:
+      Min: 1
+      Max: 2
+    TotalAmount:
+      Min: 3
+      Max: 4
+  - CorruptedAmount:
+      Min: 1
+      Max: 3
+    TotalAmount:
+      Min: 4
+      Max: 6
+  - CorruptedAmount:
+      Min: 2
+      Max: 3
+    TotalAmount:
+      Min: 4
+      Max: 6
+  - CorruptedAmount:
+      Min: 3
+      Max: 5
+    TotalAmount:
+      Min: 5
+      Max: 7
+  - CorruptedAmount:
+      Min: 4
+      Max: 6
+    TotalAmount:
+      Min: 6
+      Max: 8
+  - CorruptedAmount:
+      Min: 5
+      Max: 8
+    TotalAmount:
+      Min: 8
+      Max: 10
   AreaHeight: 10
   AreaInterSpacing: 6
-  EnemyPerArea:
-    Min: 3
-    Max: 7
   EnemyReactionTime:
-    Min: 0.85
-    Max: 2.2
+    Min: 0.75
+    Max: 1.5
   GoldChance: 5

@@ -4005,11 +4005,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3110fcc9f02bc84a9880603a6b453b2, type: 2}
   _blockPrefab: {fileID: 9024349772116854250, guid: 307dc0ef4b9bd014aa2cf8dc1fa1b2d0, type: 3}
   _genBoundingBox: {fileID: 979135925}
-  _enemyPrefabs:
-  - {fileID: 5600395327419131041, guid: 49398d675dc3cef48a23d774a71c6870, type: 3}
+  _enemyGoodPrefabs:
   - {fileID: 2576605515115211709, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
-  - {fileID: 7851785109542494892, guid: 31352b7ed1b4ff64e9e5fb67b53aef01, type: 3}
+  - {fileID: 5600395327419131041, guid: 49398d675dc3cef48a23d774a71c6870, type: 3}
+  _enemyBadPrefabs:
   - {fileID: 9170484937325256235, guid: f326cabf98dac4e44acb3e1faf4fe6aa, type: 3}
+  - {fileID: 7851785109542494892, guid: 31352b7ed1b4ff64e9e5fb67b53aef01, type: 3}
   _exitPrefab: {fileID: 7208567566998403776, guid: 586501101c42496438bf721290ff32f5, type: 3}
 --- !u!114 &1968997205
 MonoBehaviour:
