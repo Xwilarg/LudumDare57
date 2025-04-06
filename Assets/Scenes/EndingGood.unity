@@ -191,7 +191,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a7defead2d047134b9d3d3a2674043b9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98aaa9d8ca4ecce4fbf4fa87fb759d68, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -855,12 +855,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The world was cleansed
+  m_text: 'Justice was established
 
-    But you can''t help but wonder:
+    Oculi can now establish
 
-    Was it
-    the best choice?'
+    their new society'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d7bc0ed9cdea8dc47b36bd6d9b39a949, type: 2}
   m_sharedMaterial: {fileID: -6919035839807473669, guid: d7bc0ed9cdea8dc47b36bd6d9b39a949, type: 2}
@@ -996,9 +995,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ending 1:
+  m_text: 'Ending 3:
 
-    Genocide'
+    Cohabitation'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d7bc0ed9cdea8dc47b36bd6d9b39a949, type: 2}
   m_sharedMaterial: {fileID: -6919035839807473669, guid: d7bc0ed9cdea8dc47b36bd6d9b39a949, type: 2}

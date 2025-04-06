@@ -25,6 +25,11 @@ namespace LudumDare57.Enemy
             StartCoroutine(Act());
         }
 
+        private void Start()
+        {
+            EnemyManager.Instance.Register(this);
+        }
+
         public abstract void DoAction();
 
         private IEnumerator Act()
