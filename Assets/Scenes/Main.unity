@@ -8278,7 +8278,7 @@ MonoBehaviour:
   - Button: {fileID: 341570900}
     Prices: 4b000000960000002c010000
     MoneyLabel: {fileID: 1414983987}
-  - Button: {fileID: 341570900}
+  - Button: {fileID: 1430229167}
     Prices: e7030000
     MoneyLabel: {fileID: 213340653}
 --- !u!114 &1968997207
@@ -8297,6 +8297,7 @@ MonoBehaviour:
   _onHit: {fileID: 8300000, guid: 1a38711ca7b08024a83c6f72e7a2ab62, type: 3}
   _drill: {fileID: 8300000, guid: 3c48a4dce9e5335439dd8e3f4bdb6842, type: 3}
   _buy: {fileID: 8300000, guid: c6b5e9e1844c5af44b5795a956de5081, type: 3}
+  _stun: {fileID: 8300000, guid: 0001de1f84fe5a04dae75c60857c4224, type: 3}
 --- !u!114 &1968997208
 MonoBehaviour:
   m_ObjectHideFlags: 0

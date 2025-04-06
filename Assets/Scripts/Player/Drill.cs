@@ -144,11 +144,18 @@ namespace LudumDare57.Player
             // Update drill to destroy blocks in range
             if (_drillingDir != null)
             {
+                bool shouldStop = false;
+
                 int amountGained = 0;
                 for (int i = _targetedBlocks.Count - 1; i >= 0; i--)
                 {
                     var bl = _targetedBlocks[i];
-                    if (!bl.CanDestroy) continue;
+                    if (!bl.CanDestroy)
+                    {
+                        shouldStop = true;
+                        bl.Stun(transform);
+                        continue;
+                    }
                     
                     amountGained += bl.MoneyGained;
                     Destroy(Instantiate(_breakEffect, bl.GameObject.transform.position, Quaternion.identity), .2f);
@@ -158,6 +165,12 @@ namespace LudumDare57.Player
                 }
                 PlayerManager.Instance.GainMoney(amountGained);
                 _targetedBlocks.RemoveAll(x => x.CanDestroy);
+
+                if (shouldStop)
+                {
+                    AudioManager.Instance.PlayStun();
+                    ResetDrill();
+                }
             }
         }
 
@@ -166,6 +179,7 @@ namespace LudumDare57.Player
             _drillTimer = 0f;
             _canDrill = true;
             _drillSr.color = _drillBaseColor;
+            _drillingDir = null;
         }
 
         public void OnDrill(InputAction.CallbackContext value)

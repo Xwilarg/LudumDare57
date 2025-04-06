@@ -10,7 +10,7 @@ namespace LudumDare57.Manager
         private AudioSource _sfx;
 
         [SerializeField]
-        private AudioClip _onHit, _drill, _buy;
+        private AudioClip _onHit, _drill, _buy, _stun;
 
         private void Awake()
         {
@@ -20,5 +20,6 @@ namespace LudumDare57.Manager
         public void PlayPlayerHit() => _sfx.PlayOneShot(_onHit);
         public void PlayDrill() => _sfx.PlayOneShot(_drill);
         public void PlayBuy() => _sfx.PlayOneShot(_buy);
+        public void PlayStun() => _sfx.PlayOneShot(_stun);
     }
 }

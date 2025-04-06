@@ -21,6 +21,8 @@ namespace LudumDare57.Enemy
 
         public GameObject GameObject => gameObject;
 
+        protected bool _isStunned;
+
         protected virtual void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -42,6 +44,8 @@ namespace LudumDare57.Enemy
             while (true)
             {
                 yield return new WaitForSeconds(ReactionTime);
+
+                if (_isStunned) continue;
 
                 _target = PlayerManager.Instance.GetClosest(transform.position);
                 if (_target != null && Vector2.Distance(transform.position, _target.transform.position) < 15f * DistanceSeeMultiplier)
@@ -72,5 +76,18 @@ namespace LudumDare57.Enemy
 
         public void ToggleHighlight(bool _)
         { }
+
+        public void Stun(Transform player)
+        {
+            StartCoroutine(WaitStun());
+            _rb.linearVelocity = (transform.position - player.position).normalized * 20f;
+        }
+
+        private IEnumerator WaitStun()
+        {
+            _isStunned = true;
+            yield return new WaitForSeconds(1f);
+            _isStunned = false;
+        }
     }
 }

@@ -20,7 +20,8 @@ namespace LudumDare57.Enemy
         {
             _hintInstance = Instantiate(_hintPrefab, _target.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(.75f);
-            transform.position = _hintInstance.transform.position;
+
+            if (!_isStunned) transform.position = _hintInstance.transform.position;
             Destroy(_hintInstance);
         }
 

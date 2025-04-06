@@ -24,5 +24,10 @@ namespace LudumDare57.Prop
         {
             _sr.color = value ? Color.red : Color.white;
         }
+
+        public void Stun(Transform _)
+        {
+            Debug.LogError("Stun shouldn't be called on blocks");
+        }
     }
 }
