@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: LightCatcher
+    uniqueID: 1692262843
+    locked: 0
   - name: AttackHint
     uniqueID: 3214477325
     locked: 0
