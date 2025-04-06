@@ -15,7 +15,7 @@ namespace LudumDare57.Enemy
         [SerializeField]
         private Transform _eye;
 
-        public int MoneyGained => Random.Range(20, 50);
+        public int MoneyGained => Random.Range(10, 25);
 
         public float ReactionTime { set; protected get; } = 1f;
 

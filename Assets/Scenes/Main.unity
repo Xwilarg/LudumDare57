@@ -1660,7 +1660,7 @@ GameObject:
   - component: {fileID: 440823129}
   - component: {fileID: 440823128}
   m_Layer: 5
-  m_Name: PriceText
+  m_Name: PriceDrillCooldown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3190,7 +3190,7 @@ GameObject:
   - component: {fileID: 667660241}
   - component: {fileID: 667660240}
   m_Layer: 5
-  m_Name: PriceText
+  m_Name: PriceDrillSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3900,7 +3900,7 @@ GameObject:
   - component: {fileID: 951690932}
   - component: {fileID: 951690931}
   m_Layer: 5
-  m_Name: PriceText
+  m_Name: PriceDrillSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5853,7 +5853,7 @@ GameObject:
   - component: {fileID: 1414983988}
   - component: {fileID: 1414983987}
   m_Layer: 5
-  m_Name: PriceText
+  m_Name: PriceLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7157,7 +7157,7 @@ GameObject:
   - component: {fileID: 1867647871}
   - component: {fileID: 1867647870}
   m_Layer: 5
-  m_Name: PriceText
+  m_Name: PriceHealthUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7641,7 +7641,7 @@ MonoBehaviour:
   _cam: {fileID: 519420031}
   _targetFollow: {fileID: 1465471350}
   _moneyText: {fileID: 1377712271}
-  _baseMoney: 5000
+  _baseMoney: 0
 --- !u!114 &1968997206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7669,7 +7669,7 @@ MonoBehaviour:
     MoneyLabel: {fileID: 667660240}
   - Button: {fileID: 341570900}
     Prices: 4b000000960000002c010000
-    MoneyLabel: {fileID: 667660240}
+    MoneyLabel: {fileID: 1414983987}
 --- !u!114 &1968997207
 MonoBehaviour:
   m_ObjectHideFlags: 0
