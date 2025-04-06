@@ -76,6 +76,22 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.008459568
       objectReference: {fileID: 0}
+    - target: {fileID: 7712857182675412036, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
+      propertyPath: m_Color.b
+      value: 0.015218933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712857182675412036, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
+      propertyPath: m_Color.g
+      value: 0.015218933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712857182675412036, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 7712857182675412036, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
+      propertyPath: m_Intensity
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8811063727912636449, guid: 709ae449653dd6d4f899e206927621d1, type: 3}
       propertyPath: m_Sprite
       value: 
