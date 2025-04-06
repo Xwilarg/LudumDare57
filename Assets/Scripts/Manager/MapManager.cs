@@ -36,15 +36,16 @@ namespace LudumDare57.Manager
             _mapContainer = new GameObject("Map");
             _genBoundingBox.size = new Vector2((_genInfo.MapGenWidth * 2f + 1f) * TileSize, _genBoundingBox.size.y);
 
+            int xStart = 0;
             for (int area = 0; area < _genInfo.AreaCount; area++)
             {
-                GenerateArea(area);
+                GenerateArea(area, out xStart);
             }
             SpawnWall(-_genInfo.MapGenWidth, 1f);
             SpawnWall(_genInfo.MapGenWidth, 1f);
 
             Instantiate(_exitPrefab, new Vector2(
-                x: (-_genInfo.MapGenWidth + 1) * TileSize,
+                x: xStart * TileSize,
                 y: (GameTopAreaY - (_genInfo.AreaCount * (_genInfo.AreaHeight + _genInfo.AreaInterSpacing)) + 1.5f) * TileSize
                 ), Quaternion.identity);
             for (int y = 0; y < 3; y++)
@@ -69,7 +70,7 @@ namespace LudumDare57.Manager
             }
         }
 
-        private void GenerateArea(int yOffset)
+        private void GenerateArea(int yOffset, out int xStart)
         {
             for (int y = 0; y < _genInfo.AreaHeight; y++)
             {
@@ -83,7 +84,7 @@ namespace LudumDare57.Manager
                 }
             }
             var size = (int)Random.Range(_genInfo.MapGenWidth, 2f * _genInfo.MapGenWidth / 3f);
-            var xStart = (int)Random.Range(-_genInfo.MapGenWidth, -_genInfo.MapGenWidth / 2f);
+            xStart = (int)Random.Range(-_genInfo.MapGenWidth, -_genInfo.MapGenWidth / 2f);
             for (int y = 0; y < _genInfo.AreaInterSpacing; y++)
             {
                 for (int x = -_genInfo.MapGenWidth; x <= _genInfo.MapGenWidth; x++)
