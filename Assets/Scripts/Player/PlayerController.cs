@@ -83,7 +83,7 @@ namespace LudumDare57.Player
             var depth = transform.position.y / 2f;
 
             var sign = depth >= 0f ? " " : "-";
-            _depthText.text = $"Depth: {sign}{Mathf.Abs(depth):00 000}m";
+            _depthText.text = $"Depth: {sign}{Mathf.Abs(depth):000}m";
 
             if (_hurtTimer > 0f)
             {
