@@ -21,7 +21,7 @@ namespace LudumDare57.Manager
                 {
                     PlayerManager.Instance.GainMoney(-u.Prices[u.Index]);
                     u.Index++;
-                    if (u.Index == 3) u.Button.gameObject.SetActive(false);
+                    if (u.Index == u.Prices.Length) u.Button.gameObject.SetActive(false);
                     else u.MoneyLabel.text = $"{u.Prices[u.Index]}";
 
                     AudioManager.Instance.PlayBuy();
@@ -61,6 +61,11 @@ namespace LudumDare57.Manager
         public void GainHealth()
         {
             PlayerManager.Instance.ForEach(x => x.GainLife(1));
+        }
+
+        public void UpgradeDrillKillOnlyBads()
+        {
+            EnemyManager.Instance.OnlyKillBads = true;
         }
     }
 

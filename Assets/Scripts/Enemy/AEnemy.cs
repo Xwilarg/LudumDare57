@@ -53,6 +53,8 @@ namespace LudumDare57.Enemy
 
         public abstract bool IsBad { get; }
 
+        public bool CanDestroy => !EnemyManager.Instance.OnlyKillBads || IsBad;
+
         private void Update()
         {
             if (_target == null)

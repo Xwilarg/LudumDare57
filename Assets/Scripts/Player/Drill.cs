@@ -148,6 +148,8 @@ namespace LudumDare57.Player
                 for (int i = _targetedBlocks.Count - 1; i >= 0; i--)
                 {
                     var bl = _targetedBlocks[i];
+                    if (!bl.CanDestroy) continue;
+                    
                     amountGained += bl.MoneyGained;
                     Destroy(Instantiate(_breakEffect, bl.GameObject.transform.position, Quaternion.identity), .2f);
                     EnemyManager.Instance.Unregister(bl.GameObject);
@@ -155,7 +157,7 @@ namespace LudumDare57.Player
                     Destroy(bl.GameObject);
                 }
                 PlayerManager.Instance.GainMoney(amountGained);
-                _targetedBlocks.Clear();
+                _targetedBlocks.RemoveAll(x => x.CanDestroy);
             }
         }
 

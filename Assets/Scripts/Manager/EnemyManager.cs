@@ -20,6 +20,8 @@ namespace LudumDare57.Manager
         private int AmountGood { set; get; }
         private int AmountBad { set; get; }
 
+        public bool OnlyKillBads { set; get; }
+
         private void Awake()
         {
             Instance = this;

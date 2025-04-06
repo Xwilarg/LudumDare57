@@ -9,5 +9,7 @@ namespace LudumDare57.Prop
 
         public void OnDestroy();
         public void ToggleHighlight(bool value);
+
+        public bool CanDestroy { get; }
     }
 }

@@ -8,6 +8,8 @@ namespace LudumDare57.Prop
 
         public GameObject GameObject => gameObject;
 
+        public bool CanDestroy => true;
+
         private SpriteRenderer _sr;
 
         private void Awake()
