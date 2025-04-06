@@ -11,6 +11,8 @@ namespace LudumDare57.Manager
 
         private readonly List<AEnemy> _enemies = new();
 
+        private int AmountGood { set; get; }
+
         private void Awake()
         {
             Instance = this;
@@ -19,6 +21,7 @@ namespace LudumDare57.Manager
         public void Register(AEnemy e)
         {
             _enemies.Add(e);
+            if (!e.IsBad) AmountGood++;
         }
 
         public void Unregister(GameObject go)
@@ -27,6 +30,6 @@ namespace LudumDare57.Manager
         }
 
         public bool AreBadEnemiesAlive => _enemies.Any(x => x.IsBad);
-        public bool AreAllDead => _enemies.Count == 0;
+        public bool AreMostDead => _enemies.Count < AmountGood / 2f;
     }
 }

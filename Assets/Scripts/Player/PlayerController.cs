@@ -170,7 +170,7 @@ namespace LudumDare57.Player
             {
                 string targetScene;
                 if (EnemyManager.Instance.AreBadEnemiesAlive) targetScene = "EndingKillNone";
-                else if (EnemyManager.Instance.AreAllDead) targetScene = "EndingKillAll";
+                else if (EnemyManager.Instance.AreMostDead) targetScene = "EndingKillAll";
                 else targetScene = "EndingGood";
                 SceneManager.LoadScene(targetScene);
             }
