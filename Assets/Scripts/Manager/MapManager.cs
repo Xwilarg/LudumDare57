@@ -3,7 +3,6 @@ using LudumDare57.Prop;
 using LudumDare57.SO;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
 namespace LudumDare57.Manager
