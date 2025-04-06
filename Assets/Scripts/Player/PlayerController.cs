@@ -36,6 +36,9 @@ namespace LudumDare57.Player
         private Sprite[] _skins;
         private int _currentSkin;
 
+        [SerializeField]
+        private GameObject _recallPrefab;
+
         private Rigidbody2D _rb;
         private float _xMov;
 
@@ -49,6 +52,9 @@ namespace LudumDare57.Player
         private Drill _drill;
 
         public bool IsOnExit { set; private get; }
+
+        private GameObject _recallObject;
+        private float _recallTimer = -1f;
 
         private void Awake()
         {
@@ -66,7 +72,8 @@ namespace LudumDare57.Player
 
         private void FixedUpdate()
         {
-            if (_drill.IsDrilling) _rb.linearVelocity = _drill.DrilligDir * _drill.DrillSpeedRef;
+            if (_recallTimer > 0f) _rb.linearVelocity = Vector2.zero;
+            else if (_drill.IsDrilling) _rb.linearVelocity = _drill.DrilligDir * _drill.DrillSpeedRef;
             else if (_hurtTimer > 0f) _rb.linearVelocity = _hurtDirection * _info.HurtSpeed;
             else _rb.linearVelocity = new Vector2(_xMov * _info.Speed, _rb.linearVelocityY);
         }
@@ -81,6 +88,16 @@ namespace LudumDare57.Player
             if (_hurtTimer > 0f)
             {
                 _hurtTimer -= Time.deltaTime;
+            }
+
+            if (_recallTimer > 0f)
+            {
+                _recallTimer -= Time.deltaTime;
+                if (_recallTimer <= 0f)
+                {
+                    Destroy(_recallObject);
+                    ResetPlayer();
+                }
             }
         }
 
@@ -148,6 +165,15 @@ namespace LudumDare57.Player
             }
         }
 
+        public void CancelRecall()
+        {
+            if (_recallTimer >= 0f)
+            {
+                _recallTimer = -1f;
+                Destroy(_recallObject);
+            }
+        }
+
         private IEnumerator PlayJumpCooldown() // Prevent player from spamming jump button to launch upward
         {
             _canJump = false;
@@ -181,7 +207,7 @@ namespace LudumDare57.Player
 
         public void OnJump(InputAction.CallbackContext value)
         {
-            if (value.phase == InputActionPhase.Started && _canJump)
+            if (value.phase == InputActionPhase.Started && _canJump && _recallTimer <= 0f)
             {
                 // Check for floor under player
                 var under = Physics2D.OverlapBox((Vector2)transform.position - Vector2.up, new Vector2(1f, .2f), 0f, LayerMask.GetMask("Map"));
@@ -195,13 +221,22 @@ namespace LudumDare57.Player
 
         public void OnInteract(InputAction.CallbackContext value)
         {
-            if (value.phase == InputActionPhase.Started && IsOnExit)
+            if (value.phase == InputActionPhase.Started && IsOnExit && _recallTimer <= 0f)
             {
                 string targetScene;
                 if (EnemyManager.Instance.AreBadEnemiesAlive) targetScene = "EndingKillNone";
                 else if (EnemyManager.Instance.AreMostDead) targetScene = "EndingKillAll";
                 else targetScene = "EndingGood";
                 SceneManager.LoadScene(targetScene);
+            }
+        }
+
+        public void OnRestart(InputAction.CallbackContext value)
+        {
+            if (value.phase == InputActionPhase.Started && _recallTimer <= 0f)
+            {
+                _recallObject = Instantiate(_recallPrefab, transform.position, Quaternion.identity);
+                _recallTimer = _info.RecallDuration;
             }
         }
 

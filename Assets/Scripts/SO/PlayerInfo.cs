@@ -7,6 +7,7 @@ namespace LudumDare57.SO
     {
         [Header("Stats")]
         public int HealthCount;
+        public float RecallDuration;
 
         [Header("Basic Movements")]
         public float Speed;

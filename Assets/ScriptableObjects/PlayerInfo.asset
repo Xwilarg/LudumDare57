@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
   HealthCount: 3
+  RecallDuration: 3
   Speed: 7.5
   JumpForce: 35
   JumpCooldown: 0.2

@@ -17,6 +17,9 @@ namespace LudumDare57.Player
         private SpriteRenderer _drillSr;
 
         [SerializeField]
+        private SpriteRenderer _effectSr;
+
+        [SerializeField]
         private TriggerDetector _drillTrigger;
         private CircleCollider2D _triggerColl;
 
@@ -26,6 +29,10 @@ namespace LudumDare57.Player
         [SerializeField]
         private Sprite[] _upgradedSprites;
         private int _upgradeIndex;
+
+        [SerializeField]
+        private Sprite[] _upgradedDrillEffect;
+        private int _effectIndex;
 
         private PlayerController _controller;
         private PlayerInfo _info;
@@ -96,6 +103,8 @@ namespace LudumDare57.Player
         {
             DrillSpeedRef *= 2f;
             _drillDurationRef /= 1.5f;
+            _effectSr.sprite = _upgradedDrillEffect[_effectIndex];
+            _effectIndex++;
         }
 
         private void Update()
@@ -183,6 +192,8 @@ namespace LudumDare57.Player
                 _canDrill = false;
 
                 AudioManager.Instance.PlayDrill();
+
+                _controller.CancelRecall();
             }
         }
     }
