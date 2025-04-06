@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 namespace LudumDare57.Player
@@ -27,6 +28,9 @@ namespace LudumDare57.Player
 
         [SerializeField]
         private SpriteRenderer _sr;
+
+        [SerializeField]
+        private Light2D _light;
 
         private Rigidbody2D _rb;
         private float _xMov;
@@ -104,6 +108,12 @@ namespace LudumDare57.Player
         public void UpgradeDrillSpeed()
         {
             _drill.UpgradeDrillSpeed();
+        }
+
+        public void UpgradeLight()
+        {
+            _light.pointLightOuterRadius++;
+            _light.falloffIntensity -= .15f;
         }
 
         private void ResetPlayer()
