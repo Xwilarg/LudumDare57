@@ -25,8 +25,10 @@ namespace LudumDare57.Player
         private GameObject _healthPrefab;
         private readonly List<GameObject> _lives = new();
 
-        private Rigidbody2D _rb;
+        [SerializeField]
         private SpriteRenderer _sr;
+
+        private Rigidbody2D _rb;
         private float _xMov;
 
         private bool _canJump = true;
@@ -44,7 +46,6 @@ namespace LudumDare57.Player
         {
             _rb = GetComponent<Rigidbody2D>();
             _drill = GetComponent<Drill>();
-            _sr = GetComponent<SpriteRenderer>();
 
             _maxLife = _info.HealthCount;
         }
@@ -146,8 +147,16 @@ namespace LudumDare57.Player
         public void OnMove(InputAction.CallbackContext value)
         {
             _xMov = value.ReadValue<Vector2>().x;
-            if (_xMov < 0f) _xMov = -1f;
-            else if (_xMov > 0f) _xMov = 1f;
+            if (_xMov < 0f)
+            {
+                _xMov = -1f;
+                _sr.flipX = true;
+            }
+            else if (_xMov > 0f)
+            {
+                _xMov = 1f;
+                _sr.flipX = false;
+            }
         }
 
         public void OnJump(InputAction.CallbackContext value)
