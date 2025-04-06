@@ -22,6 +22,7 @@ namespace LudumDare57.Manager
                     PlayerManager.Instance.GainMoney(-u.Prices[u.Index]);
                     u.Index++;
                     if (u.Index == 3) u.Button.gameObject.SetActive(false);
+                    else u.MoneyLabel.text = $"{u.Prices[u.Index]}";
 
                     AudioManager.Instance.PlayBuy();
                     UpdateShopUI(PlayerManager.Instance.Money);

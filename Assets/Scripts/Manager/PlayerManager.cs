@@ -60,6 +60,11 @@ namespace LudumDare57.Manager
         public PlayerController GetClosest(Vector2 target)
             => _players.OrderBy(p => Mathf.Pow(target.x - p.transform.position.x, 2) + Mathf.Pow(target.y - p.transform.position.y, 2)).FirstOrDefault();
 
+        public void ToggleSkin()
+        {
+            ForEach(x => x.ToggleSkin());
+        }
+
         public void ForEach(Action<PlayerController> a)
         {
             foreach (var p in _players)

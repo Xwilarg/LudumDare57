@@ -32,6 +32,10 @@ namespace LudumDare57.Player
         [SerializeField]
         private Light2D _light;
 
+        [SerializeField]
+        private Sprite[] _skins;
+        private int _currentSkin;
+
         private Rigidbody2D _rb;
         private float _xMov;
 
@@ -114,6 +118,12 @@ namespace LudumDare57.Player
         {
             _light.pointLightOuterRadius++;
             _light.falloffIntensity -= .15f;
+        }
+
+        public void ToggleSkin()
+        {
+            _currentSkin = _currentSkin == 0 ? 1 : 0;
+            _sr.sprite = _skins[_currentSkin];
         }
 
         private void ResetPlayer()
