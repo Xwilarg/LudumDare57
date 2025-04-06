@@ -6,6 +6,8 @@ namespace LudumDare57.Enemy
     {
         private Vector2 _baseVelocity;
 
+        public override bool IsBad => true;
+
         public override void DoAction()
         {
             _baseVelocity = Vector2.ClampMagnitude(_rb.linearVelocity + ((Vector2)(_target.transform.position - transform.position)).normalized * 5f, 7.5f);

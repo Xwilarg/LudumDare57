@@ -1,5 +1,6 @@
 using LudumDare57.Enemy;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace LudumDare57.Manager
@@ -10,6 +11,11 @@ namespace LudumDare57.Manager
 
         private readonly List<AEnemy> _enemies = new();
 
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         public void Register(AEnemy e)
         {
             _enemies.Add(e);
@@ -19,5 +25,8 @@ namespace LudumDare57.Manager
         {
             _enemies.RemoveAll(x => x.gameObject.GetInstanceID() == go.GetInstanceID());
         }
+
+        public bool AreBadEnemiesAlive => _enemies.Any(x => x.IsBad);
+        public bool AreAllDead => _enemies.Count == 0;
     }
 }

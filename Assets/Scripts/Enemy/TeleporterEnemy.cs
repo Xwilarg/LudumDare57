@@ -9,6 +9,7 @@ namespace LudumDare57.Enemy
         private GameObject _hintPrefab;
 
         private GameObject _hintInstance;
+        public override bool IsBad => true;
 
         public override void DoAction()
         {

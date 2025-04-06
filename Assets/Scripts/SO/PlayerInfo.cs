@@ -16,8 +16,8 @@ namespace LudumDare57.SO
         public float HurtDuration;
 
         [Header("Drilling")]
-        [Tooltip("Player speed while drilling")] public float DrillingSpeed;
         [Tooltip("After we are done drilling, amount of time we need to wait before doing it again")] public float DrillingCooldown;
+        [Tooltip("Player speed while drilling")] public float DrillingSpeed;
         [Tooltip("Amount of time in which drilling effect is active")] public float DrillDuration;
     }
 }

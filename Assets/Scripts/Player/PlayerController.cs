@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace LudumDare57.Player
 {
@@ -56,7 +57,7 @@ namespace LudumDare57.Player
 
         private void FixedUpdate()
         {
-            if (_drill.IsDrilling) _rb.linearVelocity = _drill.DrilligDir * _info.DrillingSpeed;
+            if (_drill.IsDrilling) _rb.linearVelocity = _drill.DrilligDir * _drill.DrillSpeedRef;
             else if (_hurtTimer > 0f) _rb.linearVelocity = _hurtDirection * _info.HurtSpeed;
             else _rb.linearVelocity = new Vector2(_xMov * _info.Speed, _rb.linearVelocityY);
         }
@@ -97,6 +98,11 @@ namespace LudumDare57.Player
         public void UpgradeDrillCooldown()
         {
             _drill.UpgradeDrillCooldown();
+        }
+
+        public void UpgradeDrillSpeed()
+        {
+            _drill.UpgradeDrillSpeed();
         }
 
         private void ResetPlayer()
@@ -162,7 +168,11 @@ namespace LudumDare57.Player
         {
             if (value.phase == InputActionPhase.Started && IsOnExit)
             {
-                // TODO: Game end
+                string targetScene;
+                if (EnemyManager.Instance.AreBadEnemiesAlive) targetScene = "EndingKillNone";
+                else if (EnemyManager.Instance.AreAllDead) targetScene = "EndingKillAll";
+                else targetScene = "EndingGood";
+                SceneManager.LoadScene(targetScene);
             }
         }
 

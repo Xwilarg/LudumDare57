@@ -47,6 +47,8 @@ namespace LudumDare57.Enemy
             }
         }
 
+        public abstract bool IsBad { get; }
+
         private void Update()
         {
             if (_target == null)

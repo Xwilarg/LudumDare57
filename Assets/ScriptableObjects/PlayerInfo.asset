@@ -18,6 +18,6 @@ MonoBehaviour:
   JumpCooldown: 0.2
   HurtSpeed: 20
   HurtDuration: 0.2
-  DrillingSpeed: 30
   DrillingCooldown: 2
+  DrillingSpeed: 15
   DrillDuration: 0.2

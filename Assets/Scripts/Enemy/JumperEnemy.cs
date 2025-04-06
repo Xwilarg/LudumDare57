@@ -5,6 +5,7 @@ namespace LudumDare57.Enemy
     public class JumperEnemy : AEnemy
     {
         private const float MaxX = 20f;
+        public override bool IsBad => false;
 
         public override void DoAction()
         {

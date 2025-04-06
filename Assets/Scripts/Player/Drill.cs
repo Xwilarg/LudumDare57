@@ -41,6 +41,9 @@ namespace LudumDare57.Player
         public Vector2 DrilligDir => _drillingDir.Value;
 
         private readonly List<IDestructible> _targetedBlocks = new();
+
+        public float DrillSpeedRef { private set; get; }
+        private float _drillDurationRef;
         
 
         private void Awake()
@@ -52,6 +55,9 @@ namespace LudumDare57.Player
 
             _drillSr = _drill.GetComponent<SpriteRenderer>();
             _drillBaseColor = _drillSr.color;
+
+            DrillSpeedRef = _info.DrillingSpeed;
+            _drillDurationRef = _info.DrillDuration;
 
             _drillTrigger.OnTriggerEnterEvt.AddListener((c) =>
             {
@@ -86,6 +92,12 @@ namespace LudumDare57.Player
             _upgradeIndex++;
         }
 
+        public void UpgradeDrillSpeed()
+        {
+            DrillSpeedRef *= 2f;
+            _drillDurationRef /= 1.5f;
+        }
+
         private void Update()
         {
             // Update drill timer
@@ -94,7 +106,7 @@ namespace LudumDare57.Player
                 _drillTimer -= Time.deltaTime;
 
                 // Update drill color depending of how long we have been drilling
-                if (_drillingDir != null) _drillSr.color = Color.Lerp(_drillBaseColor, Color.red, 1f - (_drillTimer / _info.DrillDuration));
+                if (_drillingDir != null) _drillSr.color = Color.Lerp(_drillBaseColor, Color.red, 1f - (_drillTimer / _drillDurationRef));
                 else _drillSr.color = Color.Lerp(Color.red, _drillBaseColor, 1f - (_drillTimer / _drillCooldownRef));
 
                 if (_drillTimer <= 0f)
@@ -167,7 +179,7 @@ namespace LudumDare57.Player
                 var worldMouse = PlayerManager.Instance.Camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 _drillingDir = ((Vector2)(worldMouse - transform.position)).normalized;
 
-                _drillTimer = _info.DrillDuration;
+                _drillTimer = _drillDurationRef;
                 _canDrill = false;
 
                 AudioManager.Instance.PlayDrill();
