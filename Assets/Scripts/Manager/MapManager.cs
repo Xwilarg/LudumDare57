@@ -136,7 +136,7 @@ namespace LudumDare57.Manager
             wall.transform.position = new Vector2((x + (sizeX * (x < 0f ? -1f : 1f))) * TileSize, 0f);
             wall.transform.parent = _mapContainer.transform;
             var coll = wall.GetComponent<BoxCollider2D>();
-            coll.size = new Vector2(sizeX * TileSize, 50f);
+            coll.size = new Vector2(sizeX * TileSize, 100f);
         }
 
         private void SpawnTile(int x, int y, bool destructible, bool isObjective = false)

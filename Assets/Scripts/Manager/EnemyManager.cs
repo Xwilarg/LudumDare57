@@ -32,13 +32,12 @@ namespace LudumDare57.Manager
             _enemies.Add(e);
             if (!e.IsBad) AmountGood++;
             else AmountBad++;
-
-            if (AreAllGoodDead) _shopSr.sprite = _emptyShop;
         }
 
         public void Unregister(GameObject go)
         {
             _enemies.RemoveAll(x => x.gameObject.GetInstanceID() == go.GetInstanceID());
+            if (AreAllGoodDead) _shopSr.sprite = _emptyShop;
         }
 
         public bool DidKillAnyGood => _enemies.Count(x => !x.IsBad) != AmountGood;
